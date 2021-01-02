@@ -12,13 +12,18 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.modamedicandroidapplication.R;
 
+import org.json.JSONObject;
+
+import Model.Exceptions.ServerFalseException;
 import Model.Questionnaires.AnswersManager;
 import Model.Questionnaires.Questionnaire;
 import Model.Questionnaires.QuestionnaireSenderAndReceiver;
+import Model.Users.Login;
 import Model.Utils.Configurations;
 import Model.Utils.Constants;
 import Model.Utils.HttpRequests;
 import Model.Utils.PropertiesManager;
+import Model.Utils.Urls;
 import View.QuestionnaireActivity;
 import View.ViewUtils.BindingValues;
 
@@ -29,7 +34,7 @@ public abstract class AbstractNotification extends BroadcastReceiver {
     /*
    this method should send notifications to user
     */
-    public void notifyUser(Context context, String notification_text, int id, long questionnaire_id) {
+    public void notifyAboutQuestionnaire(Context context, String notification_text, int id, long questionnaire_id) {
         Log.i(TAG,"notifyUser");
         Intent intent = setQuestionnaireActivity(questionnaire_id,context);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -70,5 +75,36 @@ public abstract class AbstractNotification extends BroadcastReceiver {
         return intent;
     }
 
+    protected JSONObject getCurrentStepsStatus (Context context) {
+        String url = Urls.urlCurrentStepsStatus; //complete the path to server
+        HttpRequests http = HttpRequests.getInstance(context);
+        JSONObject result = null;
+        try {
+            result = http.sendGetRequest(url, Login.getToken(HttpRequests.getContext()));
+            return result;
+        } catch (ServerFalseException serverFalseException) {
+            serverFalseException.printStackTrace();
+            Log.i(TAG, "problem in asking if user has been answered to server " + serverFalseException.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public void notifyAboutDailyStepsStatus(Context context, String notification_text, int id){
+        Log.i(TAG,"notifyAboutQuestionnaire");
+
+        Notification notification = null;
+        notification = new NotificationCompat.Builder(context, Constants.CHANNEL_ID)
+                .setContentTitle(context.getString(R.string.app_name))
+                .setContentText(context.getString(R.string.step_reminder))
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.notif_icon)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(notification_text))
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        notificationManager.notify(id, notification);
+        Log.i(TAG,"end notifyAboutQuestionnaire");
+    }
 
 }

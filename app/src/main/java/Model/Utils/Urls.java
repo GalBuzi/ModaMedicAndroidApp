@@ -27,4 +27,8 @@ public final class Urls {
     public static final String urlOfGetSurgeryDate = "auth/usersAll/getDateOfSurgery";
     public static final String urlOfSetSurgeryDate = "auth/usersAll/ChangeDateOfSurgery";
     public static final String urlOfSetNewQuestionnaires = "auth/usersAll/changeUserQuestionnaire";
+
+
+    public static final String urlCurrentStepsStatus = "http://localhost:8180/auth/patients/PatientDestinations/getPatientProgress";
+
 }

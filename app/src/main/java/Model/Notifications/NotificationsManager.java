@@ -41,6 +41,8 @@ public class NotificationsManager {
         int periodic_minute = Configurations.getNotificationMinute(context,"periodic");
         int periodic_hour =  Configurations.getNotificationHour(context,"periodic");
 
+        int stepsTarget_minute = Configurations.getNotificationMinute(context,"stepsDest");
+        int stepsTarget_hour =  Configurations.getNotificationHour(context,"stepsDest");
 
         //Daily notification
         Calendar daily_calendar = Calendar.getInstance();
@@ -54,9 +56,17 @@ public class NotificationsManager {
         periodic_calendar.set(Calendar.HOUR_OF_DAY, periodic_hour);
         periodic_calendar.set(Calendar.MINUTE, periodic_minute);
 
+        //stepsDest notification
+        Calendar stepsTarget_calendar = Calendar.getInstance();
+        stepsTarget_calendar.setTimeInMillis(System.currentTimeMillis());
+        stepsTarget_calendar.set(Calendar.HOUR_OF_DAY, stepsTarget_hour);
+        stepsTarget_calendar.set(Calendar.MINUTE, stepsTarget_minute);
+
         setRepeatingNotification(DailyNotification.class, daily_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY, 100);
         //Periodic notification
         setRepeatingNotification(PeriodicNotification.class, periodic_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY,101);
+        //setRepeatingNotification(StepsTargetNotification.class, stepsTarget_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY,105);
+
     }
 
     private void setRepeatingNotification(Class notification_class, long time, long interval, int requestCode) {
@@ -72,7 +82,7 @@ public class NotificationsManager {
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = CHANNEL_ID;
-            String description = "שליחת נוטיפיקציות מדי יום עבור תזכורת למענה על שאלונים יומיים או תקופתיים";
+            String description = "שליחת נוטיפיקציות מדי יום עבור תזכורת למענה על שאלונים יומיים או תקופתיים או עמידה ביעדים מוגדרים";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);

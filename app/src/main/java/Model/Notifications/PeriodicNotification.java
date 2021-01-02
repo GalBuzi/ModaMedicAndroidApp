@@ -45,7 +45,7 @@ public class PeriodicNotification extends AbstractNotification{
                         String notification_text = context.getString(R.string.periodic_questionnaire_notification_pref) + " " +
                                 Questionnaires.get(questionnaireID) + context.getString(R.string.periodic_questionnaire_notification_suffix);
                         int id = 101;
-                        notifyUser(context, notification_text, id,questionnaireID);
+                        notifyAboutQuestionnaire(context, notification_text, id,questionnaireID);
                         Log.i("Periodic","sending notification for questionnaire " + Questionnaires.get(questionnaireID));
                         break;
                     }

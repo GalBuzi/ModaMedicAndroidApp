@@ -142,5 +142,13 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="error_on_server_try_later">אירעה שגיאה בשרת, אנה נסה שנית במועד מאוחר יותר</string>
     <string name="no_internet_connection">אין חיבור אינטרנט פעיל. התחבר לרשת ונסה שנית</string>
 
+    <string name="dailyStepsCompleted">כל הכבוד! עמדת ביעד היומי!</string>
+    <string name="levelUp">עבודה טובה! עלית שלב!</string>
+    <string name="curr_target">היעד הנוכחי שלך:</string>
+    <string name="numOfRepeats">מספר חזרות עד לשלב הבא:</string>
+    <string name="dailyStepsFailed">לא עמדת ביעד, נסה לעמוד בקצב!</string>
+    <string name="urlCurrentStepsStatus">אין חיבור אינטרנט פעיל. התחבר לרשת ונסה שנית</string>
+    <string name="step_reminder">התראת צעדים</string>
+
 
 </resources>

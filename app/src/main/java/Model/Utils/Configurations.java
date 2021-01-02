@@ -8,6 +8,8 @@ public class Configurations {
     public static final String daysWithoutAnsweringQuestionnaireBeforeSendingPeriodicNotification = "daysWithoutAnsweringQuestionnaireBeforeSendingPeriodicNotification";
     private static final String timeForMissedMetricsCheckTask = "timeForMissedMetricsCheckTask";
 
+    private static final String timeForStepsTargetNotification = "timeForStepsTargetNotification";
+
 
 
     public static int getNotificationHour(Context context, String type) {
