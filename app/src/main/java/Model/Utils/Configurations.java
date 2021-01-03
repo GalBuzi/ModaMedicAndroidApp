@@ -16,6 +16,8 @@ public class Configurations {
         String time;
         if (type.equals("daily"))
             time = PropertiesManager.getProperty(Configurations.timeForDailyNotification, context);
+        else if (type.equals("stepsDest"))
+            time = PropertiesManager.getProperty(Configurations.timeForStepsTargetNotification, context);
         else
             time = PropertiesManager.getProperty(Configurations.timeForPeriodicNotification, context);
         assert time != null;
@@ -26,6 +28,8 @@ public class Configurations {
         String time;
         if (type.equals("daily"))
             time = PropertiesManager.getProperty(Configurations.timeForDailyNotification, context);
+        else if (type.equals("stepsDest"))
+            time = PropertiesManager.getProperty(Configurations.timeForStepsTargetNotification, context);
         else
             time = PropertiesManager.getProperty(Configurations.timeForPeriodicNotification, context);
         assert time != null;

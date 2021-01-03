@@ -19,6 +19,8 @@ import androidx.annotation.RequiresApi;
 
 import com.example.modamedicandroidapplication.R;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -27,9 +29,13 @@ import java.util.concurrent.TimeUnit;
 
 import Controller.AppController;
 import Model.ConnectedDevices;
+import Model.Exceptions.ServerFalseException;
 import Model.Questionnaires.Questionnaire;
+import Model.Users.Login;
 import Model.Utils.Constants;
+import Model.Utils.HttpRequests;
 import Model.Utils.NetworkUtils;
+import Model.Utils.Urls;
 import View.ViewUtils.BindingValues;
 import View.ViewUtils.MessageUtils;
 
@@ -56,6 +62,7 @@ public class HomePageActivity extends AbstractActivity {
             @Override
             public void run() {
                 appController.setNotifications(getApplicationContext());
+                Log.i("IN THREAD","==========================================================================================");
                 appController.setMissingMetricsTask(getApplicationContext());
                 appController.setMetricsTask(getApplicationContext());
             }

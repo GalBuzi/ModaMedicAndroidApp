@@ -40,6 +40,8 @@ public class Permissions {
                         .addDataType(TYPE_ACTIVITY_SEGMENT,FitnessOptions.ACCESS_READ)
                         .build();
 
+//        GoogleSignIn.requestPermissions(app,1,GoogleSignIn.getLastSignedInAccount(app),fitnessOptions);
+
         if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(app), fitnessOptions)) {
             GoogleSignIn.requestPermissions(
                     app, // your activity

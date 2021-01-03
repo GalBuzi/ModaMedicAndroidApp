@@ -84,7 +84,7 @@ public class SensorData {
 
         try {
 
-            GoogleSignInAccount googleSignInAccount =GoogleSignIn.getLastSignedInAccount(context);
+            GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(context);
             if (GoogleSignIn.hasPermissions(googleSignInAccount, fitnessOptions)) {
                 Log.i(TAG, "collectData: sleep,activity,steps,calories,distance and weather");
                 sleepGoogleFit.extractSleepData(context);

@@ -127,8 +127,7 @@ public class QuestionnaireActivity extends AbstractActivity {
         TextView question_TV = new TextView(this);
         question_TV.setText(ques_TEXT);
         question_TV.setTextSize(TypedValue.COMPLEX_UNIT_SP,questionTextSize);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 10, 10, 10);
         question_TV.setGravity(Gravity.CENTER);
         question_TV.setLayoutParams(params);

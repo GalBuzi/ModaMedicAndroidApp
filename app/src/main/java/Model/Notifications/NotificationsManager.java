@@ -65,7 +65,7 @@ public class NotificationsManager {
         setRepeatingNotification(DailyNotification.class, daily_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY, 100);
         //Periodic notification
         setRepeatingNotification(PeriodicNotification.class, periodic_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY,101);
-        //setRepeatingNotification(StepsTargetNotification.class, stepsTarget_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY,105);
+        setRepeatingNotification(StepsTargetNotification.class, stepsTarget_calendar.getTimeInMillis()+ TimeUtils.randomTime(),INTERVAL_DAY,105);
 
     }
 

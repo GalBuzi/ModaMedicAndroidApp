@@ -20,10 +20,16 @@ import android.widget.ImageButton;
 
 import com.example.modamedicandroidapplication.R;
 
+import org.json.JSONObject;
+
 import Controller.AppController;
+import Model.Exceptions.ServerFalseException;
+import Model.Users.Login;
 import Model.Users.Permissions;
 import Model.Utils.Constants;
+import Model.Utils.HttpRequests;
 import Model.Utils.NetworkUtils;
+import Model.Utils.Urls;
 import View.ViewUtils.BindingValues;
 import View.ViewUtils.MessageUtils;
 
@@ -58,6 +64,7 @@ public class MainActivity extends AbstractActivity {
             }
             setHideKeyBoard();
             askForPermissions();
+
             EditText username_textfield = findViewById(R.id.username_textfield);
             String username = getUserName();
             if (!username.equals("not exists"))

@@ -82,6 +82,17 @@ public class HttpRequests {
             throw new ServerFalseException("Problem in the application, try again");
         }
     }
+
+    public JSONObject sendGetRequestTest(String url, String token) throws ServerFalseException {
+        sendRequestHttp = new SendRequestHttp();
+        try {
+            JSONObject jo = sendRequestHttp.execute("GET_TOKEN", url,token).get();
+            sendRequestHttp.checkException();
+            return jo;
+        }catch (ExecutionException | InterruptedException e) {
+            throw new ServerFalseException("Problem in the application, try again");
+        }
+    }
 }
 
 class SendRequestHttp extends AsyncTask<String, Void, JSONObject> {

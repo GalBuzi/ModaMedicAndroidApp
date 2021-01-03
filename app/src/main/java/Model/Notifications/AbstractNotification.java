@@ -76,21 +76,22 @@ public abstract class AbstractNotification extends BroadcastReceiver {
     }
 
     protected JSONObject getCurrentStepsStatus (Context context) {
-        String url = Urls.urlCurrentStepsStatus; //complete the path to server
+        String url = Urls.urlCurrentStepsStatus;
         HttpRequests http = HttpRequests.getInstance(context);
         JSONObject result = null;
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJ5dHdxUEp3L3dvRjQvME1TUmdTaWdzcTN2OEdEa044azRtcmh5QWN0cXgwPSIsIlR5cGUiOlsicGF0aWVudCJdLCJpYXQiOjE2MDk0MDQ0OTEsImV4cCI6MTY0MDk0MDQ5MX0.uP-CcszcT3cB3ryKW73u6sY8SgsPqk__cNvthw4NJkM";
         try {
-            result = http.sendGetRequest(url, Login.getToken(HttpRequests.getContext()));
+            result = http.sendGetRequestTest(url, token);
             return result;
         } catch (ServerFalseException serverFalseException) {
             serverFalseException.printStackTrace();
-            Log.i(TAG, "problem in asking if user has been answered to server " + serverFalseException.getLocalizedMessage());
+            Log.i("error", "problem in asking if user has been answered to server " + serverFalseException.getLocalizedMessage());
         }
         return null;
     }
 
     public void notifyAboutDailyStepsStatus(Context context, String notification_text, int id){
-        Log.i(TAG,"notifyAboutQuestionnaire");
+        Log.i(TAG,"notifyAboutSteps---------------------------------------------------------------------");
 
         Notification notification = null;
         notification = new NotificationCompat.Builder(context, Constants.CHANNEL_ID)
