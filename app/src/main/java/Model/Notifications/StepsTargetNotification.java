@@ -34,6 +34,7 @@ public class StepsTargetNotification extends AbstractNotification {
             @Override
             public void run() {
 
+
                 SharedPreferences sharedPref = context.getSharedPreferences(Constants.sharedPreferencesName, Context.MODE_PRIVATE);
                 long lastLogin = sharedPref.getLong(Constants.LAST_LOGIN, 0);
                 long currentTime = Calendar.getInstance().getTimeInMillis();
