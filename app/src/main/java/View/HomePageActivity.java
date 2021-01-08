@@ -35,6 +35,7 @@ import Model.Users.Login;
 import Model.Utils.Constants;
 import Model.Utils.HttpRequests;
 import Model.Utils.NetworkUtils;
+import Model.Utils.TimeUtils;
 import Model.Utils.Urls;
 import View.ViewUtils.BindingValues;
 import View.ViewUtils.MessageUtils;
@@ -111,6 +112,14 @@ public class HomePageActivity extends AbstractActivity {
         }
         checkIfBandIsConnected();
         updateBTState();
+        Thread t_sensorData = new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                appController.SendSensorData();
+            }
+        });
+        t_sensorData.start();
     }
 
     @Override

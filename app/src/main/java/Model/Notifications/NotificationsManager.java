@@ -44,6 +44,9 @@ public class NotificationsManager {
         int stepsTarget_minute = Configurations.getNotificationMinute(context,"stepsDest");
         int stepsTarget_hour =  Configurations.getNotificationHour(context,"stepsDest");
 
+        int stepsReminder_minute = Configurations.getNotificationMinute(context,"stepsReminder");
+        int stepsReminder_hour =  Configurations.getNotificationHour(context,"stepsReminder");
+
         //Daily notification
         Calendar daily_calendar = Calendar.getInstance();
         daily_calendar.setTimeInMillis(System.currentTimeMillis());
@@ -62,10 +65,18 @@ public class NotificationsManager {
         stepsTarget_calendar.set(Calendar.HOUR_OF_DAY, stepsTarget_hour);
         stepsTarget_calendar.set(Calendar.MINUTE, stepsTarget_minute);
 
+        //stepsReminder notification
+        Calendar stepsReminder_calendar = Calendar.getInstance();
+        stepsReminder_calendar.setTimeInMillis(System.currentTimeMillis());
+        stepsReminder_calendar.set(Calendar.HOUR_OF_DAY, stepsReminder_hour);
+        stepsReminder_calendar.set(Calendar.MINUTE, stepsReminder_minute);
+
         setRepeatingNotification(DailyNotification.class, daily_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY, 100);
         //Periodic notification
         setRepeatingNotification(PeriodicNotification.class, periodic_calendar.getTimeInMillis() + TimeUtils.randomTime(),INTERVAL_DAY,101);
-        setRepeatingNotification(StepsTargetNotification.class, stepsTarget_calendar.getTimeInMillis()+ TimeUtils.randomTime(),INTERVAL_DAY,105);
+        setRepeatingNotification(StepsTargetNotification.class, stepsTarget_calendar.getTimeInMillis(),INTERVAL_DAY,105);
+        setRepeatingNotification(updateStepsNotification.class, stepsReminder_calendar.getTimeInMillis(),INTERVAL_DAY,106);
+
 
     }
 

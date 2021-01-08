@@ -102,7 +102,8 @@ public class SleepGoogleFit implements DataSender {
                         String sleepStage = point.getValue(Field.FIELD_ACTIVITY).asActivity();
 
                         //ignore non sleeping data
-                        if (!sleepStage.equals("sleep.deep") && !sleepStage.equals("sleep.light"))
+                        if (!sleepStage.equals("sleep.deep") && !sleepStage.equals("sleep.light")
+                                && !sleepStage.equals("sleep.awake"))
                             continue;
 
 
@@ -205,7 +206,8 @@ public class SleepGoogleFit implements DataSender {
                             String sleepStage = point.getValue(Field.FIELD_ACTIVITY).asActivity();
 
                             //ignore non sleeping data
-                            if (!sleepStage.equals("sleep.deep") && !sleepStage.equals("sleep.light"))
+                            if (!sleepStage.equals("sleep.deep") && !sleepStage.equals("sleep.light")
+                                    && !sleepStage.equals("sleep.awake"))
                                 continue;
 
 

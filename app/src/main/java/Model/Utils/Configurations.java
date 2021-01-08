@@ -9,6 +9,7 @@ public class Configurations {
     private static final String timeForMissedMetricsCheckTask = "timeForMissedMetricsCheckTask";
 
     private static final String timeForStepsTargetNotification = "timeForStepsTargetNotification";
+    private static final String timeForStepsReminderNotification = "timeForStepsReminderNotification";
 
 
 
@@ -18,6 +19,8 @@ public class Configurations {
             time = PropertiesManager.getProperty(Configurations.timeForDailyNotification, context);
         else if (type.equals("stepsDest"))
             time = PropertiesManager.getProperty(Configurations.timeForStepsTargetNotification, context);
+        else if (type.equals("stepsReminder"))
+            time = PropertiesManager.getProperty(Configurations.timeForStepsReminderNotification, context);
         else
             time = PropertiesManager.getProperty(Configurations.timeForPeriodicNotification, context);
         assert time != null;
@@ -30,6 +33,8 @@ public class Configurations {
             time = PropertiesManager.getProperty(Configurations.timeForDailyNotification, context);
         else if (type.equals("stepsDest"))
             time = PropertiesManager.getProperty(Configurations.timeForStepsTargetNotification, context);
+        else if (type.equals("stepsReminder"))
+            time = PropertiesManager.getProperty(Configurations.timeForStepsReminderNotification, context);
         else
             time = PropertiesManager.getProperty(Configurations.timeForPeriodicNotification, context);
         assert time != null;
