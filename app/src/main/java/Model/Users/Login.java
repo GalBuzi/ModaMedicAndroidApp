@@ -3,12 +3,14 @@ package Model.Users;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.locks.Condition;
 
 import Model.Exceptions.InvalidTokenException;
@@ -24,6 +26,7 @@ public class Login {
 
     private static String userToken;
     private static String specialToken = null; //for forgot password
+    private static final String TAG = "LOGIN";
 
     private static void setTokenOfUser(Context context) {
         String not_exists = "not exists";
@@ -61,6 +64,8 @@ public class Login {
                 sharedPref.edit().putString("token", token).apply();
                 sharedPref.edit().putString("name", name).apply();
                 setTokenOfUser(context);
+                setInitSteps(login_body,httpRequests,token,"Daily");
+                setInitSteps(login_body,httpRequests,token,"Weekly");
             }
 
             return type_flag;
@@ -69,8 +74,30 @@ public class Login {
             e.printStackTrace();
             return false;
         }
+    }
 
+    public static String setInitSteps(JSONObject body, HttpRequests httpRequests, String token, String time_period){
+        Log.i(TAG, "setting initial steps in server");
+        try{
+            JSONObject response = null;
+            if (time_period.equals("Daily"))
+                response = httpRequests.sendPostRequest(body, Urls.setInitStepsDaily, token);
+            else if (time_period.equals("Weekly"))
+                response = httpRequests.sendPostRequest(body, Urls.setInitStepsWeekly, token);
 
+            Log.i(TAG, "init steps for user");
+            Log.i(TAG, "response:  " + response);
+            return "OK";
+        } catch (ServerFalseException e) {
+            Log.e(TAG, "failing in init steps, error: ");
+            if (Objects.requireNonNull(e.getMessage()).equals("Wrong Code")) {
+                return "Wrong Code";
+            } else if (e.getMessage().equals("Taken Email")) {
+                return "Taken Email";
+            }
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static JSONObject makeBodyJson(String username, String password) {

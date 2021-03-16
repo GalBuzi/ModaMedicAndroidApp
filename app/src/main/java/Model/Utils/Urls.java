@@ -30,4 +30,6 @@ public final class Urls {
 
     public static final String urlDailyStepsStatus = "auth/patients/PatientDestinations/checkPatientProgress";
 
+    public static final String setInitStepsDaily = "auth/patients/PatientDestinations/insertLastDaySteps";
+    public static final String setInitStepsWeekly = "auth/patients/PatientDestinations/insertLastWeekSteps";
 }

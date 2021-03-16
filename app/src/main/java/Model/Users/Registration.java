@@ -40,6 +40,7 @@ public class Registration {
         return null;
     }
 
+
     public static Map<Integer, String> getAllVerificationQuestions(HttpRequests httpRequests) {
         try {
             Map<Integer, String> result = new HashMap<Integer, String>();
