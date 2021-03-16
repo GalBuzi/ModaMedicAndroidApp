@@ -63,7 +63,7 @@ public class MainActivity extends AbstractActivity {
                 return;
             }
             setHideKeyBoard();
-            askForPermissions();
+
 
             EditText username_textfield = findViewById(R.id.username_textfield);
             String username = getUserName();
@@ -71,6 +71,16 @@ public class MainActivity extends AbstractActivity {
                 username_textfield.setText(username);
         }
     }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        if (requestCode == /*whatever you set in requestPermissions()*/) {
+//            if (!Arrays.asList(grantResults).contains(PackageManager.PERMISSION_DENIED)) {
+//                //all permissions have been granted
+//                doStuff(); //call your dependent logic
+//            }
+//        }
+//    }
 
     private boolean loggedUser() {
         return sharedPref.getBoolean(Constants.KEEP_USER_LOGGED,false);
@@ -84,7 +94,7 @@ public class MainActivity extends AbstractActivity {
     }
 
 
-    private void askForPermissions() {
+    public void askForPermissions() {
         /**
          * PERMMISIONS REQUEST
          * ALL YOU NEED TO DO IS TO INSERT THE PERMISSION NAME TO THE MANIFEST FILE
@@ -92,7 +102,7 @@ public class MainActivity extends AbstractActivity {
         Permissions permissions = new Permissions(this);
         try {
             permissions.requestPermissions();
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException | InterruptedException e) {
             e.printStackTrace();
         }
         //end permissions requests
@@ -102,6 +112,11 @@ public class MainActivity extends AbstractActivity {
         EditText password_textfield = findViewById(R.id.password_textfield);
         View.OnFocusChangeListener ofcListener = new MyFocusChangeListener();
         password_textfield.setOnFocusChangeListener(ofcListener);
+    }
+
+    public void getFitnessPermissions(View view) {
+        System.out.println("======================================= testing Button");
+        askForPermissions();
     }
 
     public void registerFunction(View view) {

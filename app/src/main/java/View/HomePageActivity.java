@@ -126,7 +126,7 @@ public class HomePageActivity extends AbstractActivity {
     protected void onStop() {
         super.onStop();
         Log.i(TAG,"onStop has been called");
-      //  appController.setNotifications(getApplicationContext());
+        //  appController.setNotifications(getApplicationContext());
         unregisterBluetoothReceiver();
     }
 
@@ -192,22 +192,40 @@ public class HomePageActivity extends AbstractActivity {
         Button[] questionnaire_buttons = new Button[questionnaires.size()];
         int i=0;
         for (Map.Entry<Long,String> entry : questionnaires.entrySet()) {
-                questionnaire_buttons[i] = new Button(this);
-                final Long QuestionnaireID = entry.getKey();
-                String text = getString(R.string.questionnaire) + " " + entry.getValue();
-                questionnaire_buttons[i].setText(text);
-                questionnaire_buttons[i].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openQuestionnaireActivity(questionnaires.get(QuestionnaireID),QuestionnaireID);
-                    }
-                });
-                setButtonConfiguration(questionnaire_buttons[i]);
-                layout.addView(questionnaire_buttons[i]);
-                i++;
-            }
-
+            questionnaire_buttons[i] = new Button(this);
+            final Long QuestionnaireID = entry.getKey();
+            String text = getString(R.string.questionnaire) + " " + entry.getValue();
+            questionnaire_buttons[i].setText(text);
+            questionnaire_buttons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openQuestionnaireActivity(questionnaires.get(QuestionnaireID),QuestionnaireID);
+                }
+            });
+            setButtonConfiguration(questionnaire_buttons[i]);
+            layout.addView(questionnaire_buttons[i]);
+            i++;
+        }
     }
+
+//    private void buildVideosBtn(){
+//        LinearLayout  layout =  findViewById(R.id.lin_layout);
+//        Button videoPlayer = new Button(this);
+//        videoPlayer.setText("test");
+//        videoPlayer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openVideoActivity();
+//            }
+//        });
+//        setButtonConfiguration(videoPlayer);
+//    }
+
+//    private void openVideoActivity() {
+//        Intent intent = new Intent(this, VideoYoutubeActivity.class);
+//        intent.putExtra("videoid", "mtL4fOWm3vY");
+//        startActivity(intent);
+//    }
 
     private void setButtonConfiguration(Button b) {
         LinearLayout.LayoutParams params = new LinearLayout .LayoutParams(
@@ -233,8 +251,8 @@ public class HomePageActivity extends AbstractActivity {
     }
 
     public void changePasswordFunction(View view) {
-            Intent intent = new Intent(this, SetNewPasswordForLoggedInUserActivity.class);
-            startActivity(intent);
+        Intent intent = new Intent(this, SetNewPasswordForLoggedInUserActivity.class);
+        startActivity(intent);
     }
 
 

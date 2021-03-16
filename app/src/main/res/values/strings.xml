@@ -150,9 +150,15 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
 
 
     <string name="tell_us_num_of_steps">ספר לנו כמה צעדים עשית היום!</string>
-
-
-
+    <string name="fitness_permission">Google-Fit</string>
+    <string name="daily_improve_steps">כל הכבוד! שיפרת את כמות הצעדים היומית!</string>
+    <string name="daily_yesterday_num_of_steps">כמות צעדים אתמול:</string>
+    <string name="daily_today_num_of_steps">כמות צעדים היום:</string>
+    <string name="daily_no_improve_steps">נסה לעמוד בקצב! לא שיפרת את כמות הצעדים היומית</string>
+    <string name="weekly_improve_steps">כל הכבוד! שיפרת את כמות הצעדים השבועית!</string>
+    <string name="weekly_before_num_of_steps">כמות צעדים בשבוע שעבר:</string>
+    <string name="weekly_no_improve_steps">נסה לעמוד בקצב! לא שיפרת את כמות הצעדים השבועית</string>
+    <string name="weekly_current_num_of_steps">כמות צעדים השבוע:</string>
 
 
 </resources>

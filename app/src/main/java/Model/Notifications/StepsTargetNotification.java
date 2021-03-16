@@ -47,33 +47,78 @@ public class StepsTargetNotification extends AbstractNotification {
                  */
                 JSONObject status = getCurrentStepsStatus(context);
                 boolean targetDone = false;
+                String alertsType = "";
+                int currentWeekSteps = -1;
+                int LastWeekStepsNumber = -1;
+
                 int currentSteps = -1;
                 int lastDaySteps = -1;
+                boolean popAlert = false;
+                //LastWeekStepsNumber
 
                 if (status != null){
                     try {
                         JSONObject data = status.getJSONObject("data");
-                        targetDone = data.getBoolean("targetDone");
-                        currentSteps = data.getInt("currentSteps");
-                        lastDaySteps = data.getInt("lastDaySteps");
+                        alertsType = data.getString("alertsType");
+                        popAlert = data.getBoolean("popAlert");
+//                        targetDone = data.getBoolean("targetDone");
+//                        currentWeekSteps = data.getInt("currentWeekSteps");
+//                        steps = data.getInt("lastDaySteps");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     int id = 105;
-                    if(targetDone && currentSteps >0 && lastDaySteps>0){
-                        String notification_text = context.getString(R.string.improve_daily_steps) + "\n" +
-                                    context.getString(R.string.yesterday_num_of_steps)+" "+ lastDaySteps + "\n" +
-                                    context.getString(R.string.today_num_of_steps)+" "+ currentSteps;
-                            notifyAboutDailyStepsStatus(context, notification_text, id);
-                        Log.i("Steps_Target","-------------------------------------------------------");
 
-                    }else if (!targetDone && currentSteps >0 && lastDaySteps>0){
-                        String notification_text = context.getString(R.string.no_improve_daily_steps) + "\n" +
-                                context.getString(R.string.yesterday_num_of_steps)+" "+ lastDaySteps + "\n" +
-                                context.getString(R.string.today_num_of_steps)+" "+ currentSteps;
-                        notifyAboutDailyStepsStatus(context, notification_text, id);
-                        Log.i("Steps_Target","sending notification for failed steps target");
+                    if (popAlert){
+                        if(alertsType.equals("Weekly")){
+                            try {
+                                JSONObject data = status.getJSONObject("data");
+                                targetDone = data.getBoolean("targetDone");
+                                currentWeekSteps = data.getInt("currentWeekSteps");
+                                LastWeekStepsNumber = data.getInt("LastWeekStepsNumber");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            if(targetDone){
+                                String notification_text = context.getString(R.string.weekly_improve_steps) + "\n" +
+                                        context.getString(R.string.weekly_before_num_of_steps)+" "+ LastWeekStepsNumber + "\n" +
+                                        context.getString(R.string.weekly_current_num_of_steps)+" "+ currentWeekSteps;
+                                notifyAboutDailyStepsStatus(context, notification_text, id);
+                                Log.i("Steps_Target","-------------------------------------------------------");
+                            }else{
+                                String notification_text = context.getString(R.string.weekly_no_improve_steps) + "\n" +
+                                        context.getString(R.string.weekly_before_num_of_steps)+" "+ LastWeekStepsNumber + "\n" +
+                                        context.getString(R.string.weekly_current_num_of_steps)+" "+ currentWeekSteps;
+                                notifyAboutDailyStepsStatus(context, notification_text, id);
+                                Log.i("Steps_Target","sending notification for failed steps target");
+                            }
+
+                        }else if (alertsType.equals("Daily")){
+                            try {
+                                JSONObject data = status.getJSONObject("data");
+                                targetDone = data.getBoolean("targetDone");
+                                currentSteps = data.getInt("currentSteps");
+                                lastDaySteps = data.getInt("lastDaySteps");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            if(targetDone){
+                                String notification_text = context.getString(R.string.daily_improve_steps) + "\n" +
+                                        context.getString(R.string.daily_yesterday_num_of_steps)+" "+ lastDaySteps + "\n" +
+                                        context.getString(R.string.daily_today_num_of_steps)+" "+ currentSteps;
+                                notifyAboutDailyStepsStatus(context, notification_text, id);
+                                Log.i("Steps_Target","-------------------------------------------------------");
+                            }else{
+                                String notification_text = context.getString(R.string.daily_no_improve_steps) + "\n" +
+                                        context.getString(R.string.daily_yesterday_num_of_steps)+" "+ lastDaySteps + "\n" +
+                                        context.getString(R.string.daily_today_num_of_steps)+" "+ currentSteps;
+                                notifyAboutDailyStepsStatus(context, notification_text, id);
+                                Log.i("Steps_Target","sending notification for failed steps target");
+                            }
+                        }
                     }
                 }
             }
