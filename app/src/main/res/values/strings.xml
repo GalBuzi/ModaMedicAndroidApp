@@ -159,6 +159,7 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="weekly_before_num_of_steps">כמות צעדים בשבוע שעבר:</string>
     <string name="weekly_no_improve_steps">נסה לעמוד בקצב! לא שיפרת את כמות הצעדים השבועית</string>
     <string name="weekly_current_num_of_steps">כמות צעדים השבוע:</string>
+    <string name="choose_questionnaire_by_body_section">בחר שאלון ע"פ איבר בגוף:</string>
 
 
 </resources>

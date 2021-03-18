@@ -46,10 +46,15 @@ public class QuestionnaireSenderAndReceiver {
             for (int i=0; i<array.length(); i++) {
                 Long id = Long.valueOf( (Integer)array.getJSONObject(i).get("QuestionnaireID"));
                 String text = (String)array.getJSONObject(i).get("QuestionnaireText");
+                String category = (String)array.getJSONObject(i).get("Category");
                 if (id!=6)
-                    result.put(id,text);
+                    result.put(id,text+";"+category);
                 else
                     System.out.println("skipping questionnaire 6");
+//                if (id!=6)
+//                    result.put(id,text);
+//                else
+//                    System.out.println("skipping questionnaire 6");
             }
         } catch (ServerFalseException | JSONException serverFalseException) {
             serverFalseException.printStackTrace();
