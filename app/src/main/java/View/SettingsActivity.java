@@ -239,6 +239,7 @@ public class SettingsActivity extends AbstractActivity {
                 continue;
             Questionnaire questionnaire = new Questionnaire();
             questionnaire.setTitle(entry.getValue());
+//            questionnaire.setTitle(entry.getValue().split(";")[0]);
             questionnaire.setQuestionaireID(entry.getKey());
             chosenQuestionnaires.add(questionnaire);
         }

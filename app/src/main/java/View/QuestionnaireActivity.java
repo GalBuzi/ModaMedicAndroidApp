@@ -64,6 +64,7 @@ public class QuestionnaireActivity extends AbstractActivity {
     private float questionTextSize;
     private float descriptionTextSize;
     private long answerVasTextSize;
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class QuestionnaireActivity extends AbstractActivity {
         long questionnaire_id = 0;
         setLocationOfPlusMinusButtons(false);
         questionnaire = (Questionnaire) intent.getSerializableExtra(BindingValues.REQUESTED_QUESTIONNAIRE);
+        category = intent.getStringExtra(BindingValues.REQUESTED_QUESTIONNAIRE_CATEGORY);
         showTitle();
         showQuestion(0);
 
@@ -263,8 +265,8 @@ public class QuestionnaireActivity extends AbstractActivity {
 
     private void backToHomePage(View v) {
         finish();
-        //    Intent intent = new Intent(this, HomePageActivity.class);
-        //startActivity(intent);
+//        Intent intent = new Intent(this, HomePageBodyActivity.class);
+//        startActivity(intent);
     }
 
     private void animateFullCircle(FloatingActionButton button) {

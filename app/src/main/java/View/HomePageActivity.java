@@ -22,6 +22,7 @@ import com.example.modamedicandroidapplication.R;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -194,7 +195,8 @@ public class HomePageActivity extends AbstractActivity {
         for (Map.Entry<Long,String> entry : questionnaires.entrySet()) {
             questionnaire_buttons[i] = new Button(this);
             final Long QuestionnaireID = entry.getKey();
-            String text = getString(R.string.questionnaire) + " " + entry.getValue();
+//            String text = getString(R.string.questionnaire) + " " + entry.getValue();
+            String text = getString(R.string.questionnaire) + " " + entry.getValue().split(";")[0];
             questionnaire_buttons[i].setText(text);
             questionnaire_buttons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -246,8 +248,19 @@ public class HomePageActivity extends AbstractActivity {
 
     private Map<Long,String> getAllQuestionnaires() {
         AppController appController = AppController.getController(this);
-        Map<Long, String> questionnaires  = appController.getUserQuestionnaires();
-        return questionnaires;
+        Map<Long, String> userQuestionnaires  = appController.getUserQuestionnaires();
+        Map<Long, String> questionnaires_filtered_by_category = new HashMap<>();
+        String category = getIntent().getStringExtra("Category");
+        for (Map.Entry<Long,String> entry : userQuestionnaires.entrySet()) {
+            long q_id = entry.getKey();
+            Questionnaire q = appController.getQuestionnaire(q_id);
+            System.out.println("test");
+            if (category.equals(q.getCategory())){
+                questionnaires_filtered_by_category.put(q.getQuestionaireID(),q.getTitle());
+            }
+
+        }
+        return questionnaires_filtered_by_category;
     }
 
     public void changePasswordFunction(View view) {

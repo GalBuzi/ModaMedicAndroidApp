@@ -14,6 +14,7 @@ import com.google.android.gms.fitness.data.DataSet;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.data.Session;
+import com.google.android.gms.fitness.data.Value;
 import com.google.android.gms.fitness.request.SessionReadRequest;
 import com.google.android.gms.fitness.result.SessionReadResponse;
 import com.google.android.gms.tasks.Task;
@@ -66,7 +67,9 @@ public class SleepGoogleFit implements DataSender {
                 .readSessionsFromAllApps()
                 // Activity segment data is required for details of the fine-
                 // granularity sleep, if it is present.
-                .read(DataType.TYPE_ACTIVITY_SEGMENT)
+                .includeSleepSessions()
+                .read(DataType.TYPE_SLEEP_SEGMENT)
+//                .read(DataType.TYPE_ACTIVITY_SEGMENT)
                 .setTimeInterval(startTime, System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .build();
 
@@ -98,28 +101,22 @@ public class SleepGoogleFit implements DataSender {
                 List<DataSet> dataSets = response.getDataSet(session);
                 for (DataSet dataSet : dataSets) {
                     for (DataPoint point : dataSet.getDataPoints()) {
-                        // The Activity defines whether this segment is light, deep, REM or awake.
-                        String sleepStage = point.getValue(Field.FIELD_ACTIVITY).asActivity();
 
-                        //ignore non sleeping data
-                        if (!sleepStage.equals("sleep.deep") && !sleepStage.equals("sleep.light")
-                                && !sleepStage.equals("sleep.awake"))
+                        // The Activity defines whether this segment is light, deep, REM or awake.
+                        int sleepStageInt = point.getValue(Field.FIELD_SLEEP_SEGMENT_TYPE).asInt();
+
+                        if (!(sleepStageInt==1) && !(sleepStageInt==4) && !(sleepStageInt==5))
                             continue;
 
+                        String[] modes = {"Unused",
+                                "Awake (during sleep)",
+                                "Sleep",
+                                "Out-of-bed",
+                                "Light sleep",
+                                "Deep sleep",
+                                "REM sleep"};
 
-                        int stateAsInt = point.getValue(Field.FIELD_ACTIVITY).asInt();
-
-                        switch (stateAsInt) {
-                            case 109:
-                                sleepStage = "SLEEP_LIGHT";
-                                break;
-                            case 110:
-                                sleepStage = "SLEEP_DEEP";
-                                break;
-                            case 112:
-                                sleepStage = "SLEEP_AWAKE";
-                                break;
-                        }
+                        String sleepStage = modes[sleepStageInt];
 
                         long start = point.getStartTime(TimeUnit.MILLISECONDS);
                         long end = point.getEndTime(TimeUnit.MILLISECONDS);

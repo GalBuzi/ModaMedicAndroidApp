@@ -172,8 +172,20 @@ public class MainActivity extends AbstractActivity {
         }
     }
 
+//    private void openHomePage(boolean logged) {
+//        Intent intent = new Intent(this, HomePageActivity.class);
+//        intent.putExtra(BindingValues.LOGGED_USERNAME, username);
+//        if (!logged) {
+//            CheckBox toSave = findViewById(R.id.RememberMeCheckBox);
+//            SharedPreferences sharedPreferences = getSharedPreferences(Constants.sharedPreferencesName,MODE_PRIVATE);
+//            sharedPreferences.edit().putBoolean(Constants.KEEP_USER_LOGGED,toSave.isChecked()).apply();
+//        }
+//        finish();
+//        startActivity(intent);
+//    }
+
     private void openHomePage(boolean logged) {
-        Intent intent = new Intent(this, HomePageActivity.class);
+        Intent intent = new Intent(this, HomePageBodyActivity.class);
         intent.putExtra(BindingValues.LOGGED_USERNAME, username);
         if (!logged) {
             CheckBox toSave = findViewById(R.id.RememberMeCheckBox);

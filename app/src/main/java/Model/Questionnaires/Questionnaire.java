@@ -10,12 +10,22 @@ public class Questionnaire implements Serializable {
     private long QuestionaireID;
     private String title;
     private List<Question> questions;
+    private String Category;
 
-    public Questionnaire(String mongoID, long questionaireID, String title, List<Question> questions) {
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
+
+    public Questionnaire(String mongoID, long questionaireID, String title, List<Question> questions, String category) {
         this.mongoID = mongoID;
         QuestionaireID = questionaireID;
         this.title = title;
         this.questions = questions;
+        this.Category = category;
     }
 
     public Questionnaire() {}

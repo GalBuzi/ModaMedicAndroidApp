@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
 import com.google.android.gms.fitness.FitnessOptions;
+import com.google.android.gms.fitness.data.DataType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,6 +81,7 @@ public class SensorData {
                         .addDataType(TYPE_CALORIES_EXPENDED, FitnessOptions.ACCESS_READ)
                         //.addDataType(DataType.AGGREGATE_ACTIVITY_SUMMARY, FitnessOptions.ACCESS_WRITE)
                         .addDataType(TYPE_ACTIVITY_SEGMENT, FitnessOptions.ACCESS_READ)
+                        .addDataType(DataType.TYPE_SLEEP_SEGMENT, FitnessOptions.ACCESS_READ)
                         .build();
 
         try {

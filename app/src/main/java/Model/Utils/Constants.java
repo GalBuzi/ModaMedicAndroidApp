@@ -2,8 +2,9 @@ package Model.Utils;
 public class Constants {
 
     //    public static final String urlPrefix = "https://icc.ise.bgu.ac.il/njsw03"; // suddenly worked
-    public static final String urlPrefix = "http://192.168.1.15:8180/"; // suddenly worked
-//    public static final String urlPrefix = "https://moda-medic.herokuapp.com/";
+//    public static final String urlPrefix = "http://192.168.1.15:8180/"; // suddenly worked
+    public static final String urlPrefix = "https://moda-medic.herokuapp.com/";
+//    public static final String urlPrefix = "http://10.100.102.12:8180/"; // suddenly worked
     public static final String sharedPreferencesName = "pref";
     public static final String USER_NOT_EXISTS = "user-not-exists";
     public static final String KEEP_USER_LOGGED = "toSave";

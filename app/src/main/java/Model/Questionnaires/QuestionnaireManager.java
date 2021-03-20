@@ -20,6 +20,7 @@ public class QuestionnaireManager {
         try {
             title = (String) jsonObject.get("QuestionnaireText");
             String mongo_id = (String) jsonObject.get("_id");
+            String category = (String) jsonObject.get("Category");
             long questionnaire_id = new Long((Integer)jsonObject.get("QuestionnaireID"));
             JSONArray questionsJSON = (JSONArray) jsonObject.get("Questions");
             List<Question> questionsList =  parseQuestionsFromJSONArray(questionsJSON);
@@ -28,6 +29,7 @@ public class QuestionnaireManager {
             result.setQuestionaireID(questionnaire_id);
             result.setTitle(title);
             result.setQuestions(questionsList);
+            result.setCategory(category);
             return result;
         } catch (JSONException e) {
             e.printStackTrace();

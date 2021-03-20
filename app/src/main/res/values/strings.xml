@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ModaMedic</string>
-    <string name="current_version_number">v1.11</string>
+    <string name="current_version_number">v2.0</string>
     <string name="daily_questionnaire_notification">לא ענית עדיין על השאלון היומי, פנה/י לנו איזה דקה?</string>
     <string name="periodic_questionnaire_notification_pref">כבר הרבה זמן שלא ענית על שאלון</string>
     <string name="periodic_questionnaire_notification_suffix">. ואנחנו רוצים לדעת מה קורה איתך. אולי תיכנס/י עכשיו?</string>
@@ -159,7 +159,9 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="weekly_before_num_of_steps">כמות צעדים בשבוע שעבר:</string>
     <string name="weekly_no_improve_steps">נסה לעמוד בקצב! לא שיפרת את כמות הצעדים השבועית</string>
     <string name="weekly_current_num_of_steps">כמות צעדים השבוע:</string>
-    <string name="choose_questionnaire_by_body_section">בחר שאלון ע"פ איבר בגוף:</string>
+    <string name="choose_questionnaire_by_body_section">בחר שאלון לפי איבר בגוף:</string>
+    <string name="daily">יומי</string>
+    <string name="periodic_questionnaire">שאלון איכות חיים</string>
 
 
 </resources>
