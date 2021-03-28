@@ -23,6 +23,7 @@ import Model.Utils.HttpRequests;
 import Model.Utils.TimeUtils;
 import Model.Utils.Urls;
 import View.HomePageActivity;
+import View.HomePageBodyActivity;
 import View.QuestionnaireActivity;
 
 public class updateStepsNotification  extends AbstractNotification{
@@ -61,7 +62,7 @@ public class updateStepsNotification  extends AbstractNotification{
 
     private void notifyStepsReminder(Context context, String notification_text, int id){
         Log.i("stepsReminder","notifyUser");
-        Intent intent = new Intent(context, HomePageActivity.class);
+        Intent intent = new Intent(context, HomePageBodyActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 106, intent, PendingIntent.FLAG_ONE_SHOT);
 

@@ -45,7 +45,8 @@ public class RegisterNewUserActivity extends AbstractActivity {
     private EditText email = null;
     private EditText password = null;
     private EditText passwordAgain = null;
-    private EditText phoneNumber = null;
+//    private EditText phoneNumber = null;
+    private String phoneNumber = "private info";
     private RadioGroup gender = null;
     private RadioGroup smoker = null;
     private RadioGroup surgery = null;
@@ -60,8 +61,10 @@ public class RegisterNewUserActivity extends AbstractActivity {
     private EditText verificationAnswer = null;
     private Map<Integer, String> questionnaireIDtoText = null;
     private List<Questionnaire> chosenQuestionnaires = null;
-    private EditText firstName = null;
-    private EditText lastName = null;
+//    private EditText firstName = null;
+    private String firstName = "מטופל";
+//    private EditText lastName = null;
+    private String lastName = "private info";
     private boolean surgeryUnknown;
     private CheckBox termsNconditions;
 
@@ -105,7 +108,7 @@ public class RegisterNewUserActivity extends AbstractActivity {
         email = findViewById(R.id.email_address);
         password = findViewById(R.id.newPassword);
         passwordAgain = findViewById(R.id.newPasswordAgain);
-        phoneNumber = findViewById(R.id.phoneNumber);
+//        phoneNumber = findViewById(R.id.phoneNumber);
         gender = findViewById(R.id.radioSex);
         smoker = findViewById(R.id.radioSmoke);
         surgery = findViewById(R.id.radioSurgery);
@@ -115,8 +118,8 @@ public class RegisterNewUserActivity extends AbstractActivity {
         specialCode = findViewById(R.id.specialCodeRegistration);
         verificationQuestion = findViewById(R.id.verification_question_spinner);
         verificationAnswer = findViewById(R.id.verification_answer);
-        firstName = findViewById(R.id.firstName);
-        lastName = findViewById(R.id.lastName);
+//        firstName = findViewById(R.id.firstName);
+//        lastName = findViewById(R.id.lastName);
         termsNconditions = findViewById(R.id.agree_terms);
         chosenQuestionnaires = new ArrayList<>();
     }
@@ -125,7 +128,9 @@ public class RegisterNewUserActivity extends AbstractActivity {
         boolean flag = verifyInputs();
         if (flag) {
             User user = new User(email.getText().toString(),password.getText().toString(),
-                    phoneNumber.getText().toString(),getRadioButtonResult(gender),
+//                    phoneNumber.getText().toString(),
+                    phoneNumber.toString(),
+                    getRadioButtonResult(gender),
                     getRadioButtonResult(smoker),getRadioButtonResult(surgery),
                     eduction.getSelectedItem().toString(),
                     Integer.parseInt(weight.getText().toString()),
@@ -136,8 +141,10 @@ public class RegisterNewUserActivity extends AbstractActivity {
                     verificationAnswer.getText().toString(),
                     (chosenSurgeryTime != null ? DateUtils.changeDateTo00AM(chosenSurgeryTime.getTimeInMillis()) : 0),
                     chosenQuestionnaires,
-                    firstName.getText().toString(),
-                    lastName.getText().toString());
+                    firstName.toString(),
+//                    firstName.getText().toString(),
+//                    lastName.getText().toString());
+                    email.getText().toString());
             String msg = appController.register(user);
             boolean flag2 = showWrongInfo(msg);
             if (flag2)
@@ -161,7 +168,7 @@ public class RegisterNewUserActivity extends AbstractActivity {
     private void openHomePage() {
         boolean flag = appController.login(email.getText().toString(),password.getText().toString(), RegisterNewUserActivity.this);
         if (flag) {
-            Intent intent = new Intent(this, HomePageActivity.class);
+            Intent intent = new Intent(this, HomePageBodyActivity.class);
             finish();
             startActivity(intent);
         }
@@ -259,10 +266,10 @@ public class RegisterNewUserActivity extends AbstractActivity {
             showAlert(R.string.choose_at_least_one_questionnaire);
             return false;
         }
-        if (!email.getText().toString().contains("@") || !email.getText().toString().contains(".")) {
-            showAlert(R.string.wrongEmailAddress);
-            return false;
-        }
+//        if (!email.getText().toString().contains("@") || !email.getText().toString().contains(".")) {
+//            showAlert(R.string.wrongEmailAddress);
+//            return false;
+//        }
         if (!password.getText().toString().equals(passwordAgain.getText().toString())) {
             showAlert(R.string.password_are_not_equal);
             return false;

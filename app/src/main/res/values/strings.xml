@@ -162,6 +162,7 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="choose_questionnaire_by_body_section">בחר שאלון לפי איבר בגוף:</string>
     <string name="daily">יומי</string>
     <string name="periodic_questionnaire">שאלון איכות חיים</string>
+    <string name="patient_id">מזהה מטופל</string>
 
 
 </resources>

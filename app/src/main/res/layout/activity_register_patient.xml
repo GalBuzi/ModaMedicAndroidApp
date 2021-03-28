@@ -94,6 +94,7 @@
             </RadioGroup>
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/firstName"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
@@ -110,6 +111,7 @@
                 android:textColorLink="@color/colorAccent" />
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/lastName"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
@@ -126,6 +128,7 @@
                 android:textColorLink="@color/colorAccent" />
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/phoneNumber"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
@@ -224,17 +227,18 @@
                 android:layout_marginTop="75dp"
                 android:ems="10"
                 android:gravity="center_horizontal"
-                android:hint="@string/id"
-                android:inputType="textEmailAddress"
+                android:hint="@string/patient_id"
+                android:inputType="numberDecimal"
                 android:shadowColor="@color/colorAccent"
                 android:textColorHighlight="@color/colorAccent"
-                android:textColorLink="@color/colorAccent" />
+                android:textColorLink="@color/colorAccent"
+                tools:ignore="TextFields" />
 
             <TextView
                 android:id="@+id/chooseEducationTitle"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="820dp"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center_horizontal"
                 android:text="@string/choose_education"
                 android:layout_height="wrap_content"
