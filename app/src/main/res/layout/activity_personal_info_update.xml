@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/verification_question"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="View.AnswerVerificationQuestionActivity">
+    tools:context="View.EditPersonalInfoActivity"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout_top"
@@ -31,67 +30,18 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout_mid"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout_bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_top"
-        app:layout_constraintVertical_bias="1.0">
-
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:gravity="center_horizontal"
-            android:text="@string/answer_verification_question"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/answer_textfield"
-            android:layout_width="275dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:gravity="center_horizontal"
-            android:hint="@string/answer"
-            android:inputType="textPersonName"
-            android:shadowColor="@color/colorAccent"
-            android:textColorHighlight="@color/colorAccent"
-            android:textColorLink="@color/colorAccent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question_textView" />
-
-        <TextView
-            android:id="@+id/title2"
-            android:layout_width="167dp"
-            android:layout_height="38dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:gravity="center_horizontal"
-            android:text="@string/birthday_string"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.885"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/answer_textfield" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_top">
 
         <Button
-            android:id="@+id/chooseDate"
+            android:id="@+id/chooseDateRegister"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,57 +55,136 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title2" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chooseDateRegister"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.775"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chooseDateRegister">
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_male"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_female"
+                android:textSize="20sp" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/height"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGender"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="96dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="@string/height"
+            android:inputType="number"
+            android:shadowColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorLink="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chooseDateRegister" />
+
+        <EditText
+            android:id="@+id/weight"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/height"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="@string/weight"
+            android:inputType="number"
+            android:shadowColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorLink="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/height" />
+
+        <Spinner
+            android:id="@+id/education_spinner"
+            android:layout_width="275dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/radioSmoke"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
+            android:entries="@array/education_spinner_choices"
+            android:spinnerMode="dropdown"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weight" />
 
         <Button
-            android:id="@+id/send"
+            android:id="@+id/update"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/education_spinner"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:background="@drawable/custom_system_button"
             android:backgroundTintMode="src_in"
             android:gravity="center"
-            android:onClick="answerQuestion"
-            android:text="@string/send"
+            android:onClick="updateInfo"
+            android:text="@string/updateInfo"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chooseDate"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/education_spinner"
+            app:layout_constraintVertical_bias="0.507" />
 
-        <TextView
-            android:id="@+id/question_textView"
-            android:layout_width="277dp"
-            android:layout_height="72dp"
-            android:layout_alignParentTop="true"
+        <RadioGroup
+            android:id="@+id/radioSmoke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weight"
             android:layout_centerHorizontal="true"
-            android:ems="10"
-            android:gravity="center_horizontal"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/radioGender"
+            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/chooseDateRegister">
 
-        <TextView
-            android:id="@+id/dateText"
-            android:layout_width="179dp"
-            android:layout_height="37dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:ems="30"
-            android:gravity="center"
-            app:layout_constraintEnd_toStartOf="@+id/title2"
-            app:layout_constraintHorizontal_bias="0.571"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/answer_textfield" />
+            <RadioButton
+                android:id="@+id/radioSmoker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_smoker"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioNonSmoker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_nonSmoker"
+                android:textSize="20sp" />
+
+        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -187,6 +216,4 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

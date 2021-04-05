@@ -9,9 +9,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import Model.Exceptions.ServerFalseException;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -218,6 +220,30 @@ class SendRequestHttp extends AsyncTask<String, Void, JSONObject> {
         Response response = client.newCall(request).execute();
         return new JSONObject(response.body().string());
     }
+
+//    public JSONObject GetRequestParams(String url, String token, Map<String,String> params) throws IOException, JSONException {
+//
+//        Log.i(TAG, String.format("sending with token: %s to %s", token, url));
+//
+//        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+//        for (Map.Entry<String,String> param : params.entrySet()) {
+//            urlBuilder.addQueryParameter(param.getKey(), param.getValue());
+//        }
+//        String req = urlBuilder.build().toString();
+//
+//        Request request = new Request.Builder()
+//                .url(req)
+//                .header("x-auth-token", token)
+//                .build();
+//
+////        Request request = new Request.Builder()
+////                .url(url)
+////                .header("x-auth-token", token)
+////                .build();
+//
+//        Response response = client.newCall(request).execute();
+//        return new JSONObject(response.body().string());
+//    }
 
     public void checkException() throws ServerFalseException {
         if (exception != null)

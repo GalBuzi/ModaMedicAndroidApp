@@ -74,6 +74,17 @@
         <activity android:name="View.SetNewPasswordForLoggedInUserActivity" />
         <activity android:name="View.RegisterNewUserActivity" />
         <activity android:name="View.SettingsActivity" />
+        <activity android:name="View.EditPersonalInfoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="View.SettingsActivity"/>
+        </activity>
+        <activity android:name="View.VideoPageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="View.HomePageActivity"/>
+        </activity>
+
     </application>
 
 </manifest>

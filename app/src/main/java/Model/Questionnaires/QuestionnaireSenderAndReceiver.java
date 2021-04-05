@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,5 +104,25 @@ public class QuestionnaireSenderAndReceiver {
         return result;
 
 
+    }
+
+    //getUserQuestionnaireTitlesByCategory
+    public static ArrayList<String> getUserCategoriesQuestionnaireTitles(HttpRequests httpRequests, String category) {
+        ArrayList<String> titles = new ArrayList<>();
+        JSONObject json = new JSONObject();
+        String token = Login.getToken(HttpRequests.getContext());
+        try {
+            json.put("Category", category);
+            JSONObject response = httpRequests.sendPostRequest(json, Urls.getUserQuestionnaireTitlesByCategory,token);
+            JSONArray array = response.getJSONArray("data");
+            for (int i = 0; i < array.length(); i++) {
+                titles.add((String)array.get(i));
+            }
+            return titles;
+        } catch (JSONException | ServerFalseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

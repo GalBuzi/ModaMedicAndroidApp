@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +19,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.modamedicandroidapplication.R;
 
-import org.json.JSONObject;
-
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,36 +29,38 @@ import java.util.concurrent.TimeUnit;
 
 import Controller.AppController;
 import Model.ConnectedDevices;
-import Model.Exceptions.ServerFalseException;
 import Model.Questionnaires.Questionnaire;
-import Model.Users.Login;
 import Model.Utils.Constants;
-import Model.Utils.HttpRequests;
 import Model.Utils.NetworkUtils;
-import Model.Utils.TimeUtils;
-import Model.Utils.Urls;
 import View.ViewUtils.BindingValues;
 import View.ViewUtils.MessageUtils;
+
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 /*
 Home page screen
  */
-public class HomePageActivity extends AbstractActivity {
+public class VideoPageActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
     private static final String TAG = "HomePageActivity";
-    Map<Long,String> questionnaires; //key: questID, value: questionnaire Text
+    Map<String,ArrayList<String>> all_exercises = null; //key: category, value: array of videos
     String username;
     AppController appController;
     BroadcastReceiver mReceiver = null;
     ScheduledExecutorService execOfBT = null;
     public static boolean BAND_CONNECTED = false;
+    private Map<String,String> playlists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         saveLastLogin();
         super.onCreate(savedInstanceState);
         username = getUserName();
-        setContentView(R.layout.activity_homepage_new);
+        setContentView(R.layout.activity_video_page_new);
         appController = AppController.getController(this);
+        initialPlaylists();
 //        Thread t_backgroundTasks = new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -83,35 +83,48 @@ public class HomePageActivity extends AbstractActivity {
 //        });
 //        t_sensorData.start();
 
-        questionnaires = getAllQuestionnaires();
+        YouTubePlayerView player = findViewById(R.id.player);
+        player.initialize(Constants.Youtube_API_key,this);
 
-        String not_exists = "not exists";
-        SharedPreferences sharedPref = this.getSharedPreferences(Constants.sharedPreferencesName,Context.MODE_PRIVATE);
-        String name = sharedPref.getString("name",not_exists);
-        if (name.equals(not_exists)) {
-            throw new NullPointerException("can't find username");
-        }
+//        if (all_exercises == null)
+//            all_exercises = getAllExercises();
+
+//        String not_exists = "not exists";
+//        SharedPreferences sharedPref = this.getSharedPreferences(Constants.sharedPreferencesName,Context.MODE_PRIVATE);
+//        String name = sharedPref.getString("name",not_exists);
+//        if (name.equals(not_exists)) {
+//            throw new NullPointerException("can't find username");
+//        }
 //        TextView good_eve = findViewById(R.id.good_evening_textView);
 //        good_eve.setText(String.format("%s %s, %s", this.getString(R.string.hello), name, getString(R.string.choose_questionnaire)));
-        createAllButtons();
+
+//        createAllButtons();
         updateBTState();
-        if (!NetworkUtils.hasInternetConnection(HomePageActivity.this)) {
-            MessageUtils.showAlert(HomePageActivity.this,getString(R.string.no_internet_connection));
+        if (!NetworkUtils.hasInternetConnection(VideoPageActivity.this)) {
+            MessageUtils.showAlert(VideoPageActivity.this,getString(R.string.no_internet_connection));
             return;
         }
 
+    }
+
+    private void initialPlaylists() {
+        playlists = new HashMap<>();
+        playlists.put("Leg","PLP7fCOgQdN3OfWqIPfcwGGOzDxyCV3Hoc");
+        playlists.put("Neck","PLP7fCOgQdN3Ozwa1eOxgxK-ilrzgdGD60");
+        playlists.put("Spine","PLP7fCOgQdN3PWfguuNX0m_JWkcuUBdwOl");
+        playlists.put("Hand","PLP7fCOgQdN3PuKGysNZfcpt4Y9BGx4NLa");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.i(TAG,"OnResume has been called");
-        if (changedQuestionnaires()) {
-            questionnaires = getAllQuestionnaires();
-            LinearLayout  layout =  findViewById(R.id.lin_layout);
-            layout.removeAllViews();
-            createAllButtons();
-        }
+//        if (changedQuestionnaires()) {
+//            questionnaires = getAllQuestionnaires();
+//            LinearLayout  layout =  findViewById(R.id.lin_layout);
+//            layout.removeAllViews();
+//            createAllButtons();
+//        }
         checkIfBandIsConnected();
         updateBTState();
 //        Thread t_sensorData = new Thread(new Runnable() {
@@ -188,28 +201,75 @@ public class HomePageActivity extends AbstractActivity {
         return name;
     }
 
-    private void createAllButtons() {
-        LinearLayout  layout =  findViewById(R.id.lin_layout);
+//    private void createAllButtons() {
+//        LinearLayout  layout =  findViewById(R.id.lin_layout);
 
-        Button[] questionnaire_buttons = new Button[questionnaires.size()];
-        int i=0;
-        for (Map.Entry<Long,String> entry : questionnaires.entrySet()) {
-            questionnaire_buttons[i] = new Button(this);
-            final Long QuestionnaireID = entry.getKey();
-//            String text = getString(R.string.questionnaire) + " " + entry.getValue();
-            String text = getString(R.string.questionnaire) + " " + entry.getValue().split(";")[0];
-            questionnaire_buttons[i].setText(text);
-            questionnaire_buttons[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openQuestionnaireActivity(questionnaires.get(QuestionnaireID),QuestionnaireID);
-                }
-            });
-            setButtonConfiguration(questionnaire_buttons[i]);
-            layout.addView(questionnaire_buttons[i]);
-            i++;
-        }
-    }
+//        int total_vids = all_exercises.size();
+
+//        YouTubePlayerView[] tubePlayerViews = new YouTubePlayerView[total_vids];
+//        YouTubePlayer.OnInitializedListener[] inits = new YouTubePlayer.OnInitializedListener[total_vids];
+//        Button[] play_btns = new Button[total_vids];
+//        String category = getIntent().getStringExtra("Category");
+//        final ArrayList<String> filtered = all_exercises.get(category);
+//        Button play = new Button(this);
+
+//        YouTubePlayerView playerView = new YouTubePlayerView(this);
+//        YouTubePlayer.OnInitializedListener init = new YouTubePlayer.OnInitializedListener() {
+//            @Override
+//            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+//                youTubePlayer.loadVideos(filtered);
+//            }
+//
+//            @Override
+//            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+//
+//            }
+//        };
+//        play.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    playerView.initialize(Constants.Youtube_API_key, init);
+//                }
+//            });
+//        play.setText("Play");
+//        setButtonConfiguration(play);
+//        setPlayerConfiguration(playerView);
+//        layout.addView(playerView);
+//        layout.addView(play);
+//        int i=0;
+//        for (String entry : all_exercises) {
+//            play_btns[i] = new Button(this);
+//            tubePlayerViews[i] = new YouTubePlayerView(this);
+//            play_btns[i].setText("Play");
+//            final int num = i;
+//            final String id_video = entry;
+//            inits[i] = new YouTubePlayer.OnInitializedListener() {
+//                @Override
+//                public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+//                    youTubePlayer.loadVideo(id_video);
+//
+//                }
+//
+//                @Override
+//                public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+//
+//                }
+//            };
+//
+//            play_btns[i].setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    tubePlayerViews[num].initialize(Constants.Youtube_API_key, inits[num]);
+//                }
+//            });
+//            setButtonConfiguration(play_btns[i]);
+//            setPlayerConfiguration(tubePlayerViews[i]);
+//            layout.addView(tubePlayerViews[i]);
+//            layout.addView(play_btns[i]);
+//
+//            i++;
+//        }
+//    }
 
     private void setButtonConfiguration(Button b) {
         LinearLayout.LayoutParams params = new LinearLayout .LayoutParams(
@@ -218,6 +278,13 @@ public class HomePageActivity extends AbstractActivity {
         b.setGravity(Gravity.CENTER);
         b.setLayoutParams(params);
         b.setBackground(getDrawable(R.drawable.custom_button));
+    }
+
+    private void setPlayerConfiguration(YouTubePlayerView p) {
+        LinearLayout.LayoutParams params = new LinearLayout .LayoutParams(
+                LinearLayout .LayoutParams.MATCH_PARENT, 500);
+        params.setMargins(10,10, 10, 10);
+        p.setLayoutParams(params);
     }
 
     private void openQuestionnaireActivity(String questionnaire_name, Long questionnaire_id) {
@@ -244,6 +311,14 @@ public class HomePageActivity extends AbstractActivity {
         }
         return questionnaires_filtered_by_category;
     }
+
+//    private Map<String, ArrayList<String>> getAllExercises() {
+////        public ArrayList<String> getAllExercises() {
+//        AppController appController = AppController.getController(this);
+//        Map<String, ArrayList<String>> userQuestionnaires  = appController.getAllExercises();
+////        ArrayList<String> userQuestionnaires  = appController.getAllExercises();
+//        return userQuestionnaires;
+//    }
 
     public void changePasswordFunction(View view) {
         Intent intent = new Intent(this, SetNewPasswordForLoggedInUserActivity.class);
@@ -294,7 +369,14 @@ public class HomePageActivity extends AbstractActivity {
 
     private void openMainActivity() {
         finish();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomePageBodyActivity.class);
+        startActivity(intent);
+    }
+
+    public void openMainActivity(View view) {
+        finish();
+        Intent intent = new Intent(this, HomePageActivity.class);
+        intent.putExtra("Category", getIntent().getStringExtra("Category"));
         startActivity(intent);
     }
 
@@ -303,11 +385,79 @@ public class HomePageActivity extends AbstractActivity {
         startActivity(intent);
     }
 
-    public void goToVideoLibrary(View view){
-        String category = getIntent().getStringExtra("Category");
-        finish();
-        Intent intent = new Intent(this,VideoPageActivity.class);
-        intent.putExtra("Category",category);
-        startActivity(intent);
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        youTubePlayer.setPlayerStateChangeListener(playerStateChangeListener);
+        youTubePlayer.setPlaybackEventListener(playbackEventListener);
+
+        if (!b) {
+            String category = getIntent().getStringExtra("Category");
+            String list = playlists.get(category);
+            youTubePlayer.cuePlaylist(list);
+        }
     }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+    }
+
+    private YouTubePlayer.PlaybackEventListener playbackEventListener = new YouTubePlayer.PlaybackEventListener() {
+        @Override
+        public void onPlaying() {
+
+        }
+
+        @Override
+        public void onPaused() {
+
+        }
+
+        @Override
+        public void onStopped() {
+
+        }
+
+        @Override
+        public void onBuffering(boolean b) {
+
+        }
+
+        @Override
+        public void onSeekTo(int i) {
+
+        }
+    };
+
+    private YouTubePlayer.PlayerStateChangeListener playerStateChangeListener = new YouTubePlayer.PlayerStateChangeListener() {
+        @Override
+        public void onLoading() {
+
+        }
+
+        @Override
+        public void onLoaded(String s) {
+
+        }
+
+        @Override
+        public void onAdStarted() {
+
+        }
+
+        @Override
+        public void onVideoStarted() {
+
+        }
+
+        @Override
+        public void onVideoEnded() {
+
+        }
+
+        @Override
+        public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+        }
+    };
 }

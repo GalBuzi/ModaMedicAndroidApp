@@ -20,7 +20,7 @@ public class SetNewPasswordForLoggedOutUserActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_new_password_for_logged_out_user);
+        setContentView(R.layout.activity_set_new_password_for_logged_out_user_new);
         appController = AppController.getController(this);
     }
 

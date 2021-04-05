@@ -23,10 +23,11 @@
     <string name="id">אימייל</string>
     <string name="password">סיסמא</string>
     <string name="forgot_password">שכחתי סיסמא</string>
+    <string name="insert_email">הכנס מספר מזהה:</string>
     <string name="reminder">תזכורת</string>
     <string name="back_to_home_page">חזור לדף הבית</string>
     <string name="answer_verification_question">תשובה לשאלת האימות</string>
-    <string name="birthday_string">תאריך לידה</string>
+    <string name="birthday_string">תאריך לידה:</string>
     <string name="choose_birthday_string">בחר/י תאריך לידה</string>
     <string name="answer">הקלד/י כאן את תשובתך</string>
     <string name="send">שלח</string>
@@ -163,6 +164,12 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="daily">יומי</string>
     <string name="periodic_questionnaire">שאלון איכות חיים</string>
     <string name="patient_id">מזהה מטופל</string>
-
+    <string name="video">תרגילי וידאו לבית</string>
+    <string name="back">חזור</string>
+    <string name="alert_no_questionnaire_for_body_part">לא קיימים עבורך שאלונים לאזור הנבחר, ערוך את השאלונים בעמוד מידע אישי</string>
+    <string name="edit_personal_info">עדכון פרטים אישיים</string>
+    <string name="edit_personal_info_title">עריכת פרטים אישיים</string>
+    <string name="updateInfo">עדכן פרטים</string>
+    <string name="updateSuccess">עדכן פרטים בוצע בהצלחה</string>
 
 </resources>

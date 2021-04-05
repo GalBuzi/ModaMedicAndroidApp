@@ -7,6 +7,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,6 +125,17 @@ public class AppController {
         return Settings.setUserQuestionnaires(httpRequests,questionnaires);
     }
 
+    public ArrayList<String> getUserCategoriesQuestionnaireTitles(String category) {
+        return QuestionnaireSenderAndReceiver.getUserCategoriesQuestionnaireTitles(httpRequests,category);
+    }
+
+    public boolean updateInfo(String gender, String isSmoker, String education, int weight, int height, long birthday) {
+        return Registration.update(gender,isSmoker,education,weight,height,birthday,httpRequests);
+    }
 
 
+//    public Map<String, ArrayList<String>> getAllExercises() {
+////    public ArrayList<String> getAllExercises() {
+//        return QuestionnaireSenderAndReceiver.getAllExercises(httpRequests);
+//    }
 }

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +19,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.modamedicandroidapplication.R;
 
-import org.json.JSONObject;
-
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,22 +29,17 @@ import java.util.concurrent.TimeUnit;
 
 import Controller.AppController;
 import Model.ConnectedDevices;
-import Model.Exceptions.ServerFalseException;
 import Model.Questionnaires.Questionnaire;
-import Model.Users.Login;
 import Model.Utils.Constants;
-import Model.Utils.HttpRequests;
 import Model.Utils.NetworkUtils;
-import Model.Utils.TimeUtils;
-import Model.Utils.Urls;
 import View.ViewUtils.BindingValues;
 import View.ViewUtils.MessageUtils;
 
 /*
 Home page screen
  */
-public class HomePageActivity extends AbstractActivity {
-    private static final String TAG = "HomePageActivity";
+public class HomePageBodyActivity extends AbstractActivity {
+    private static final String TAG = "HomePageBodyActivity";
     Map<Long,String> questionnaires; //key: questID, value: questionnaire Text
     String username;
     AppController appController;
@@ -59,31 +52,31 @@ public class HomePageActivity extends AbstractActivity {
         saveLastLogin();
         super.onCreate(savedInstanceState);
         username = getUserName();
-        setContentView(R.layout.activity_homepage_new);
+        setContentView(R.layout.activity_homepage_body_new);
         appController = AppController.getController(this);
-//        Thread t_backgroundTasks = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                appController.setNotifications(getApplicationContext());
-//                Log.i("IN THREAD","==========================================================================================");
-//                appController.setMissingMetricsTask(getApplicationContext());
-//                appController.setMetricsTask(getApplicationContext());
-//            }
-//        });
-//        t_backgroundTasks.start();
+        Thread t_backgroundTasks = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                appController.setNotifications(getApplicationContext());
+                Log.i("IN THREAD","==========================================================================================");
+                appController.setMissingMetricsTask(getApplicationContext());
+                appController.setMetricsTask(getApplicationContext());
+            }
+        });
+        t_backgroundTasks.start();
 
         checkIfBandIsConnected();
 
-//        Thread t_sensorData = new Thread(new Runnable() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void run() {
-//                appController.SendSensorData();
-//            }
-//        });
-//        t_sensorData.start();
+        Thread t_sensorData = new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                appController.SendSensorData();
+            }
+        });
+        t_sensorData.start();
 
-        questionnaires = getAllQuestionnaires();
+        //questionnaires = getAllQuestionnaires();
 
         String not_exists = "not exists";
         SharedPreferences sharedPref = this.getSharedPreferences(Constants.sharedPreferencesName,Context.MODE_PRIVATE);
@@ -91,12 +84,12 @@ public class HomePageActivity extends AbstractActivity {
         if (name.equals(not_exists)) {
             throw new NullPointerException("can't find username");
         }
-//        TextView good_eve = findViewById(R.id.good_evening_textView);
-//        good_eve.setText(String.format("%s %s, %s", this.getString(R.string.hello), name, getString(R.string.choose_questionnaire)));
-        createAllButtons();
+        TextView good_eve = findViewById(R.id.good_evening_textView);
+        good_eve.setText(String.format("%s %s, %s", this.getString(R.string.hello), name, getString(R.string.choose_questionnaire_by_body_section)));
+        //createAllButtons();
         updateBTState();
-        if (!NetworkUtils.hasInternetConnection(HomePageActivity.this)) {
-            MessageUtils.showAlert(HomePageActivity.this,getString(R.string.no_internet_connection));
+        if (!NetworkUtils.hasInternetConnection(HomePageBodyActivity.this)) {
+            MessageUtils.showAlert(HomePageBodyActivity.this,getString(R.string.no_internet_connection));
             return;
         }
 
@@ -106,12 +99,12 @@ public class HomePageActivity extends AbstractActivity {
     protected void onResume() {
         super.onResume();
         Log.i(TAG,"OnResume has been called");
-        if (changedQuestionnaires()) {
-            questionnaires = getAllQuestionnaires();
-            LinearLayout  layout =  findViewById(R.id.lin_layout);
-            layout.removeAllViews();
-            createAllButtons();
-        }
+//        if (changedQuestionnaires()) {
+//            questionnaires = getAllQuestionnaires();
+//            LinearLayout  layout =  findViewById(R.id.lin_layout);
+//            layout.removeAllViews();
+//            createAllButtons();
+//        }
         checkIfBandIsConnected();
         updateBTState();
 //        Thread t_sensorData = new Thread(new Runnable() {
@@ -202,6 +195,7 @@ public class HomePageActivity extends AbstractActivity {
             questionnaire_buttons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+//                    openQuestionnaireActivity(questionnaires.get(QuestionnaireID),QuestionnaireID);
                     openQuestionnaireActivity(questionnaires.get(QuestionnaireID),QuestionnaireID);
                 }
             });
@@ -210,6 +204,68 @@ public class HomePageActivity extends AbstractActivity {
             i++;
         }
     }
+
+//    public void goToQuestionnaireByCategory(View view) {
+//        //Integer.parseInt((String)v.getTag())
+//        String category = (String)view.getTag();
+//        AppController appController = AppController.getController(this);
+//        Map<Long, String> userQuestionnaires  = appController.getUserQuestionnaires();
+//        Map<Long, String> questionnaires_filtered_by_category = new HashMap<>();
+//        for (Map.Entry<Long,String> entry : userQuestionnaires.entrySet()) {
+//            long q_id = entry.getKey();
+//            Questionnaire q = appController.getQuestionnaire(q_id);
+//            if (category.equals(q.getCategory())) {
+//                questionnaires_filtered_by_category.put(q.getQuestionaireID(), q.getTitle());
+//            }
+//        }
+//        if (questionnaires_filtered_by_category.size() > 0) {
+//            Intent intent = new Intent(this, HomePageActivity.class);
+//            intent.putExtra("Category", category);
+//            startActivity(intent);
+//        }
+//        else
+//            MessageUtils.showAlert(HomePageBodyActivity.this,getString(R.string.alert_no_questionnaire_for_body_part));
+//    }
+
+    public void goToQuestionnaireByCategory(View view) {
+        //Integer.parseInt((String)v.getTag())
+        String category = (String) view.getTag();
+        ArrayList<String> titles = appController.getUserCategoriesQuestionnaireTitles(category);
+        if(titles != null) {
+            Intent intent = new Intent(this, HomePageActivity.class);
+            intent.putExtra("Category", category);
+            startActivity(intent);
+        }
+        else
+            MessageUtils.showAlert(HomePageBodyActivity.this,getString(R.string.alert_no_questionnaire_for_body_part));
+    }
+
+    public void goToDailyQuestionnaire(View view) {
+        openQuestionnaireActivity(getString(R.string.daily), (long) 0);
+    }
+
+    public void goToLifeQualityQuestionnaire(View view) {
+        openQuestionnaireActivity(getString(R.string.daily), (long) 5);
+    }
+
+//    private void buildVideosBtn(){
+//        LinearLayout  layout =  findViewById(R.id.lin_layout);
+//        Button videoPlayer = new Button(this);
+//        videoPlayer.setText("test");
+//        videoPlayer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openVideoActivity();
+//            }
+//        });
+//        setButtonConfiguration(videoPlayer);
+//    }
+
+//    private void openVideoActivity() {
+//        Intent intent = new Intent(this, VideoYoutubeActivity.class);
+//        intent.putExtra("videoid", "mtL4fOWm3vY");
+//        startActivity(intent);
+//    }
 
     private void setButtonConfiguration(Button b) {
         LinearLayout.LayoutParams params = new LinearLayout .LayoutParams(
@@ -230,19 +286,8 @@ public class HomePageActivity extends AbstractActivity {
 
     private Map<Long,String> getAllQuestionnaires() {
         AppController appController = AppController.getController(this);
-        Map<Long, String> userQuestionnaires  = appController.getUserQuestionnaires();
-        Map<Long, String> questionnaires_filtered_by_category = new HashMap<>();
-        String category = getIntent().getStringExtra("Category");
-        for (Map.Entry<Long,String> entry : userQuestionnaires.entrySet()) {
-            long q_id = entry.getKey();
-            Questionnaire q = appController.getQuestionnaire(q_id);
-            System.out.println("test");
-            if (category.equals(q.getCategory())){
-                questionnaires_filtered_by_category.put(q.getQuestionaireID(),q.getTitle());
-            }
-
-        }
-        return questionnaires_filtered_by_category;
+        Map<Long, String> questionnaires  = appController.getUserQuestionnaires();
+        return questionnaires;
     }
 
     public void changePasswordFunction(View view) {
@@ -303,11 +348,27 @@ public class HomePageActivity extends AbstractActivity {
         startActivity(intent);
     }
 
-    public void goToVideoLibrary(View view){
-        String category = getIntent().getStringExtra("Category");
-        finish();
-        Intent intent = new Intent(this,VideoPageActivity.class);
-        intent.putExtra("Category",category);
-        startActivity(intent);
-    }
+
+
 }
+
+//class goToQuestionnaireOnClickListener implements View.OnClickListener
+//{
+//
+//    String name;
+//    long id;
+//    String category;
+//
+//    public goToQuestionnaireOnClickListener(String name, long id, String category) {
+//        this.name = name;
+//        this.category = category;
+//        this.id = id;
+//    }
+//
+//    @Override
+//    public void onClick(View v)
+//    {
+//        //read your lovely variable
+//    }
+//
+//};

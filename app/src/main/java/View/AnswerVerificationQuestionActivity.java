@@ -183,4 +183,8 @@ public class AnswerVerificationQuestionActivity extends AbstractActivity {
             }
         }
     }
+
+    public void goHomePage(View view) {
+        finish();
+    }
 }

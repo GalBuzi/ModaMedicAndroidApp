@@ -40,7 +40,7 @@ import View.ViewUtils.InputFilterMinMax;
 public class RegisterNewUserActivity extends AbstractActivity {
 
     private String TAG = "Registration";
-    private Calendar chosenTime = null;
+    private Calendar BirthDayDate = null;
     private Calendar chosenSurgeryTime = null;
     private EditText email = null;
     private EditText password = null;
@@ -135,7 +135,7 @@ public class RegisterNewUserActivity extends AbstractActivity {
                     eduction.getSelectedItem().toString(),
                     Integer.parseInt(weight.getText().toString()),
                     Integer.parseInt(height.getText().toString()),
-                    DateUtils.changeDateTo00AM(chosenTime.getTimeInMillis()),
+                    DateUtils.changeDateTo00AM(BirthDayDate.getTimeInMillis()),
                     specialCode.getText().toString(),
                     questionToIDS.get(verificationQuestion.getSelectedItem().toString()),
                     verificationAnswer.getText().toString(),
@@ -237,7 +237,7 @@ public class RegisterNewUserActivity extends AbstractActivity {
             showAlert(R.string.fill_height);
             return false;
         }
-        if (chosenTime == null) {
+        if (BirthDayDate == null) {
             showAlert(R.string.fill_date);
             return false;
         }
@@ -299,14 +299,14 @@ public class RegisterNewUserActivity extends AbstractActivity {
                 Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
                 String date = day + "/" + month + "/" + year;
                 mDisplayDate.setText(date);
-                chosenTime = Calendar.getInstance();
-                chosenTime.setTimeZone(TimeZone.getTimeZone("Asia/Jerusalem"));
-                chosenTime.set(Calendar.YEAR,year);
-                chosenTime.set(Calendar.MONTH,month-1);
-                chosenTime.set(Calendar.DAY_OF_MONTH,day);
-                chosenTime.set(Calendar.HOUR_OF_DAY,0);
-                chosenTime.set(Calendar.MINUTE,0);
-                chosenTime.set(Calendar.SECOND,0);
+                BirthDayDate = Calendar.getInstance();
+                BirthDayDate.setTimeZone(TimeZone.getTimeZone("Asia/Jerusalem"));
+                BirthDayDate.set(Calendar.YEAR,year);
+                BirthDayDate.set(Calendar.MONTH,month-1);
+                BirthDayDate.set(Calendar.DAY_OF_MONTH,day);
+                BirthDayDate.set(Calendar.HOUR_OF_DAY,0);
+                BirthDayDate.set(Calendar.MINUTE,0);
+                BirthDayDate.set(Calendar.SECOND,0);
 
             }
         };

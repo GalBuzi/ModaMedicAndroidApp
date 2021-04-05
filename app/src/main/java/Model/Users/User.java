@@ -16,6 +16,12 @@ public class User {
     private int weight;
     private int height;
     private String bmi;
+
+    public double getBMI_NUMBER() {
+        return BMI_NUMBER;
+    }
+
+    private double BMI_NUMBER;
     private long birthday;
     private String code;
     private int verificationQuestion;
@@ -40,6 +46,7 @@ public class User {
         this.height = height;
         this.birthday = birthday;
         this.bmi = calculateBMI(height,weight);
+        this.BMI_NUMBER = calcBMI_Num(height,weight);
         this.code = code;
         this.verificationAnswer = verificationAnswer;
         this.verificationQuestion = verificationQuestion;
@@ -52,6 +59,13 @@ public class User {
     private String calculateBMI(int height, int weight) {
         double height_double = ((double)height / 100);
         return String.valueOf(((double)weight/Math.pow(height_double,2)));
+    }
+
+    private double calcBMI_Num(int height, int weight){
+        double n = ((double)height / 100);
+        double ans =((double)weight/Math.pow(n,2));
+        return ans;
+
     }
 
     public String getEmail() {

@@ -57,7 +57,7 @@ public class MainActivity extends AbstractActivity {
         }
         else {
             sharedPref.edit().putBoolean(Constants.KEEP_USER_LOGGED, false).apply();
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main_new);
             if (!NetworkUtils.hasInternetConnection(MainActivity.this)) {
                 MessageUtils.showAlert(MainActivity.this,getString(R.string.no_internet_connection));
                 return;

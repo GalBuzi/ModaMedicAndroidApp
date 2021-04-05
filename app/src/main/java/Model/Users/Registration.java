@@ -40,6 +40,23 @@ public class Registration {
         return null;
     }
 
+    public static boolean update(String gender, String isSmoker, String education, int weight, int height, long birthday, HttpRequests httpRequests) {
+        JSONObject body = new JSONObject();
+        String token = Login.getToken(HttpRequests.getContext());
+        try {
+            body.put("Gender", gender);
+            body.put("Smoke", isSmoker);
+            body.put("Education", education);
+            body.put("Weight", weight);
+            body.put("Height", height);
+            body.put("BirthDate", birthday);
+            JSONObject response = httpRequests.sendPostRequest(body, Urls.updateInfo,token);
+            return true;
+        }catch (ServerFalseException | JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static Map<Integer, String> getAllVerificationQuestions(HttpRequests httpRequests) {
         try {
@@ -79,6 +96,7 @@ public class Registration {
             body.put("VerificationAnswer",user.getVerificationAnswer());
             body.put("ValidTime",System.currentTimeMillis());
             body.put("BMI",user.getBmi());
+            body.put("BMI_NUMBER", user.getBMI_NUMBER());
 
             JSONArray questionnaireArray = new JSONArray();
             for (int i = 0; i<user.getQuestionnaires().size(); i++) {

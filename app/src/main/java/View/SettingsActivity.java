@@ -3,6 +3,7 @@ package View;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import java.util.TimeZone;
 import Controller.AppController;
 import Model.Questionnaires.Questionnaire;
 import Model.Utils.Constants;
+import View.ViewUtils.BindingValues;
 import View.ViewUtils.DateUtils;
 
 public class SettingsActivity extends AbstractActivity {
@@ -248,6 +250,11 @@ public class SettingsActivity extends AbstractActivity {
 
     public void goHomePage(View view) {
         finish();
+    }
+
+    public void gotoEditInfo (View view){
+        Intent intent = new Intent(this, EditPersonalInfoActivity.class);
+        startActivity(intent);
     }
 
     private void getOptionalQuestionnaires() {
