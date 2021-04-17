@@ -8,12 +8,16 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.SessionsClient;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
+import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.data.Session;
+import com.google.android.gms.fitness.data.SleepStages;
 import com.google.android.gms.fitness.data.Value;
 import com.google.android.gms.fitness.request.SessionReadRequest;
 import com.google.android.gms.fitness.result.SessionReadResponse;
@@ -61,6 +65,14 @@ public class SleepGoogleFit implements DataSender {
 
         long startTime = midnight.getTimeInMillis() - 14400000; //start from 20:00 of prev day
 
+        String[] modes = {"Unused",
+                "Awake (during sleep)",
+                "Sleep",
+                "Out-of-bed",
+                "Light sleep",
+                "Deep sleep",
+                "REM sleep"};
+
         // Note: The android.permission.ACTIVITY_RECOGNITION permission is
         // required to read DataType.TYPE_ACTIVITY_SEGMENT
         SessionReadRequest request = new SessionReadRequest.Builder()
@@ -73,16 +85,13 @@ public class SleepGoogleFit implements DataSender {
                 .setTimeInterval(startTime, System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .build();
 
-        Task<SessionReadResponse> task = Fitness.getSessionsClient(context,
-                GoogleSignIn.getLastSignedInAccount(context))
-                .readSession(request);
+        GoogleSignInAccount signIn = GoogleSignIn.getLastSignedInAccount(context);
 
-        task.addOnSuccessListener(response -> {
+        SessionsClient sessionsClient = Fitness.getSessionsClient(context, signIn);
 
-            // Filter the resulting list of sessions to just those that are sleep.
-            List<Session> sleepSessions = response.getSessions().stream()
-                    //.filter(s -> s.getActivity().equals(FitnessActivities.SLEEP))
-                    .collect(Collectors.toList());
+        sessionsClient.readSession(request).addOnSuccessListener(response -> {
+
+            List<Session> sleepSessions = response.getSessions();
 
             if (sleepSessions.size() == 0){
                 if (extractionCounter < 3) {
@@ -98,6 +107,24 @@ public class SleepGoogleFit implements DataSender {
                 this.totalSleepTime = session.getEndTime(TimeUnit.MILLISECONDS) - session.getStartTime(TimeUnit.MILLISECONDS);
 
                 // If the sleep session has finer granularity sub-components, extract them:
+
+                DataSource dataSource  = new  DataSource.Builder()
+                        .setType(DataSource.TYPE_RAW)
+                        .setDataType(DataType.TYPE_SLEEP_SEGMENT)
+                        .setAppPackageName(String.valueOf(this))
+//                            .setStreamName(streamName)
+                        .build();
+
+
+//                DataSet dataSet = DataSet.builder(dataSource)
+//                        .add(
+//                                DataPoint.builder(dataSource)
+//                                        .setTimeInterval(startTime, System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+//                                        .setField(Field.FIELD_SLEEP_SEGMENT_TYPE, SleepStages.SLEEP_LIGHT)
+//                                        .build()
+//                        ).build();
+
+
                 List<DataSet> dataSets = response.getDataSet(session);
                 for (DataSet dataSet : dataSets) {
                     for (DataPoint point : dataSet.getDataPoints()) {
@@ -107,14 +134,6 @@ public class SleepGoogleFit implements DataSender {
 
                         if (!(sleepStageInt==1) && !(sleepStageInt==4) && !(sleepStageInt==5))
                             continue;
-
-                        String[] modes = {"Unused",
-                                "Awake (during sleep)",
-                                "Sleep",
-                                "Out-of-bed",
-                                "Light sleep",
-                                "Deep sleep",
-                                "REM sleep"};
 
                         String sleepStage = modes[sleepStageInt];
 
@@ -136,20 +155,20 @@ public class SleepGoogleFit implements DataSender {
                     }
                 }
             }
-            // create a json for sending data to server
+//                 create a json for sending data to server
             makeBodyJson(System.currentTimeMillis());
             sendDataToServer(HttpRequests.getInstance(context));
-        })
-                .addOnFailureListener(response -> {
-                    Log.e(TAG, "extractSleepData: failed to extract sleeping data");
-                    if (extractionCounter < 3){
-                        Log.i(TAG, "extractSleepData: retry extract sleeping data. counter value = " + extractionCounter);
-                        extractSleepData(context);
-                    }
-                    else{
-                        extractionCounter = 0;
-                    }
-                });
+
+        }).addOnFailureListener(response -> {
+            Log.e(TAG, "extractSleepData: failed to extract sleeping data");
+            if (extractionCounter < 3){
+                Log.i(TAG, "extractSleepData: retry extract sleeping data. counter value = " + extractionCounter);
+                extractSleepData(context);
+            }
+            else{
+                extractionCounter = 0;
+            }
+        });
 
     }
 
@@ -171,8 +190,8 @@ public class SleepGoogleFit implements DataSender {
                     .setTimeInterval(startTime, endTime, TimeUnit.MILLISECONDS)
                     .build();
 
-            Task<SessionReadResponse> task = Fitness.getSessionsClient(context,
-                    GoogleSignIn.getLastSignedInAccount(context))
+            GoogleSignInAccount sin =GoogleSignIn.getLastSignedInAccount(context);
+            Task<SessionReadResponse> task = Fitness.getSessionsClient(context,sin)
                     .readSession(request);
 
             task.addOnSuccessListener(response -> {

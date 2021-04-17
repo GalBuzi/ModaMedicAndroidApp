@@ -107,14 +107,14 @@ public class HomePageBodyActivity extends AbstractActivity {
 //        }
         checkIfBandIsConnected();
         updateBTState();
-//        Thread t_sensorData = new Thread(new Runnable() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void run() {
-//                appController.SendSensorData();
-//            }
-//        });
-//        t_sensorData.start();
+        Thread t_sensorData = new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                appController.SendSensorData();
+            }
+        });
+        t_sensorData.start();
     }
 
     @Override
