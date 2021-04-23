@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,6 +121,82 @@ public class QuestionnaireSenderAndReceiver {
             }
             return titles;
         } catch (JSONException | ServerFalseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static boolean isLastAnswerFromToday(HttpRequests httpRequests) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = httpRequests.sendGetRequest(Urls.daily_last_response, Login.getToken(HttpRequests.getContext()));
+
+            long last_response = jsonObject.getLong("data");
+
+            Calendar midnight = Calendar.getInstance();
+
+            midnight.set(Calendar.HOUR_OF_DAY, 0);
+            midnight.set(Calendar.MINUTE, 0);
+            midnight.set(Calendar.SECOND, 0);
+            midnight.set(Calendar.MILLISECOND, 0);
+
+            long last_midnight = midnight.getTimeInMillis();
+            if (last_midnight - last_response > 0 )
+                return false;
+            else
+                return true;
+        }
+        catch (JSONException | ServerFalseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static boolean isLastAnswerFromLastTwoWeeks(HttpRequests httpRequests, long questionnaireID) {
+        JSONObject jsonObject = null;
+        JSONObject send = new JSONObject();
+        try {
+            send.put("QuestionnaireID", questionnaireID);
+            jsonObject = httpRequests.sendPostRequest(send, Urls.periodic_last_response, Login.getToken(HttpRequests.getContext()));
+
+            long last_response = jsonObject.getLong("data");
+
+            Calendar midnight = Calendar.getInstance();
+
+            midnight.set(Calendar.HOUR_OF_DAY, 0);
+            midnight.set(Calendar.MINUTE, 0);
+            midnight.set(Calendar.SECOND, 0);
+            midnight.set(Calendar.MILLISECOND, 0);
+            midnight.add(Calendar.DAY_OF_YEAR,-13);
+
+            long last_midnight_14_days_ago = midnight.getTimeInMillis();
+            if (last_midnight_14_days_ago - last_response > 0 )
+                return false;
+            else
+                return true;
+        }
+        catch (JSONException | ServerFalseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static Map<String, Boolean> getChangeWithSurgeryOrQuestionnaires(HttpRequests httpRequests) {
+        JSONObject jsonObject = null;
+        Map<String, Boolean> ans = new HashMap<>();
+        try {
+            jsonObject = httpRequests.sendGetRequest(Urls.ChangeWithSurgeryOrQuestionnaires, Login.getToken(HttpRequests.getContext()));
+            JSONObject data = (JSONObject) jsonObject.get("data");
+            boolean changedQuestionnaires = data.getBoolean("changedQuestionnaires");
+            boolean changedSurgeryDate = data.getBoolean("changedSurgeryDate");
+            ans.put("changedQuestionnaires",changedQuestionnaires);
+            ans.put("changedSurgeryDate",changedSurgeryDate);
+            return ans;
+        }
+        catch (ServerFalseException | JSONException e) {
             e.printStackTrace();
         }
 

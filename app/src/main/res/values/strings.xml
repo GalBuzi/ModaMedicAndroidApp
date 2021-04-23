@@ -171,5 +171,7 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="edit_personal_info_title">עריכת פרטים אישיים</string>
     <string name="updateInfo">עדכן פרטים</string>
     <string name="updateSuccess">עדכן פרטים בוצע בהצלחה</string>
+    <string name="changedQuestionnaires">הרופא שינה את השאלונים עבורך</string>
+    <string name="changedSurgeryDate">הרופא עדכן תאריך ניתוח עבורך</string>
 
 </resources>

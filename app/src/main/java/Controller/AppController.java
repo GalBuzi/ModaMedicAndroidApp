@@ -129,13 +129,24 @@ public class AppController {
         return QuestionnaireSenderAndReceiver.getUserCategoriesQuestionnaireTitles(httpRequests,category);
     }
 
-    public boolean updateInfo(String gender, String isSmoker, String education, int weight, int height, long birthday) {
+    public boolean updateUserRegisterationInfo(String gender, String isSmoker, String education, int weight, int height, long birthday) {
         return Registration.update(gender,isSmoker,education,weight,height,birthday,httpRequests);
     }
 
+    public boolean isLastAnswerFromToday() {
+        return QuestionnaireSenderAndReceiver.isLastAnswerFromToday(httpRequests);
+    }
 
-//    public Map<String, ArrayList<String>> getAllExercises() {
-////    public ArrayList<String> getAllExercises() {
-//        return QuestionnaireSenderAndReceiver.getAllExercises(httpRequests);
-//    }
+    public boolean isLastAnswerFromLastTwoWeeks(long questionnaireID) {
+        return QuestionnaireSenderAndReceiver.isLastAnswerFromLastTwoWeeks(httpRequests,questionnaireID);
+    }
+
+    public Map<String, Boolean> getChangeWithSurgeryOrQuestionnaires() {
+        return QuestionnaireSenderAndReceiver.getChangeWithSurgeryOrQuestionnaires(httpRequests);
+    }
+
+    public boolean updateSurgeryQuestionnairesFields(String questionnaires, String surgery) {
+        return Registration.updateSurgeryQuestionnairesFields(questionnaires,surgery,httpRequests);
+    }
+
 }

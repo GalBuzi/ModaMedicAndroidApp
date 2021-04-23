@@ -32,7 +32,11 @@ public final class Urls {
 
     public static final String setInitStepsDaily = "auth/patients/PatientDestinations/insertLastDaySteps";
     public static final String setInitStepsWeekly = "auth/patients/PatientDestinations/insertLastWeekSteps";
-    public static final String all_exercises = "auth/usersAll/exercises";
     public static final String getUserQuestionnaireTitlesByCategory = "auth/usersAll/getUserQuestionnaireByCategory";
     public static final String updateInfo = "auth/usersAll/patientUpdateAndroid";
+    public static final String daily_last_response = "auth/patients/answers/getLastDaily";
+    public static final String periodic_last_response = "auth/patients/answers/getLastPeriodicByQuestionnaire";
+    public static final String ChangeWithSurgeryOrQuestionnaires = "auth/usersAll/getChangeWithSurgeryOrQuestionnaires";
+
+
 }

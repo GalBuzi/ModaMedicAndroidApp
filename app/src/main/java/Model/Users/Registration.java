@@ -121,4 +121,17 @@ public class Registration {
         return body;
     }
 
+    public static boolean updateSurgeryQuestionnairesFields(String questionnaires, String surgery, HttpRequests httpRequests) {
+        JSONObject body = new JSONObject();
+        String token = Login.getToken(HttpRequests.getContext());
+        try {
+            body.put("changedQuestionnaires", questionnaires);
+            body.put("changedSurgeryDate", surgery);
+            JSONObject response = httpRequests.sendPostRequest(body, Urls.updateInfo,token);
+            return true;
+        }catch (ServerFalseException | JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

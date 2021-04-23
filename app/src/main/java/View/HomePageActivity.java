@@ -205,19 +205,30 @@ public class HomePageActivity extends AbstractActivity {
                     openQuestionnaireActivity(questionnaires.get(QuestionnaireID),QuestionnaireID);
                 }
             });
-            setButtonConfiguration(questionnaire_buttons[i]);
+            setButtonConfiguration(questionnaire_buttons[i],QuestionnaireID);
             layout.addView(questionnaire_buttons[i]);
             i++;
         }
     }
 
-    private void setButtonConfiguration(Button b) {
+    private void setButtonConfiguration(Button b, Long questionnaireID) {
         LinearLayout.LayoutParams params = new LinearLayout .LayoutParams(
                 LinearLayout .LayoutParams.WRAP_CONTENT, LinearLayout .LayoutParams.WRAP_CONTENT);
         params.setMargins(10,10, 10, 10);
         b.setGravity(Gravity.CENTER);
         b.setLayoutParams(params);
-        b.setBackground(getDrawable(R.drawable.custom_button));
+        changePeriodicBTNStatus(b, questionnaireID);
+//        b.setBackground(getDrawable(R.drawable.custom_button));
+    }
+
+    private void changePeriodicBTNStatus(Button b, long questionnaireID){
+        boolean ans = appController.isLastAnswerFromLastTwoWeeks(questionnaireID);
+        if(!ans){
+            b.setBackgroundResource(R.drawable.alert_btn);
+        }
+        else{
+            b.setBackgroundResource(R.drawable.custom_system_button);
+        }
     }
 
     private void openQuestionnaireActivity(String questionnaire_name, Long questionnaire_id) {

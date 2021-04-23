@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -72,7 +71,7 @@ public class EditPersonalInfoActivity extends AbstractActivity {
             int weight = Integer.parseInt(this.weight.getText().toString());
             int height = Integer.parseInt(this.height.getText().toString());
             long birthday = DateUtils.changeDateTo00AM(this.BirthDayDate.getTimeInMillis());
-            boolean success = appController.updateInfo(gender,isSmoker,education,weight,height,birthday);
+            boolean success = appController.updateUserRegisterationInfo(gender,isSmoker,education,weight,height,birthday);
             if(success)
                 success();
         }

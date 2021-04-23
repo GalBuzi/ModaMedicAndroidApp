@@ -1,5 +1,6 @@
 package View;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +22,6 @@ import com.example.modamedicandroidapplication.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -58,7 +58,6 @@ public class HomePageBodyActivity extends AbstractActivity {
             @Override
             public void run() {
                 appController.setNotifications(getApplicationContext());
-                Log.i("IN THREAD","==========================================================================================");
                 appController.setMissingMetricsTask(getApplicationContext());
                 appController.setMetricsTask(getApplicationContext());
             }
@@ -66,6 +65,7 @@ public class HomePageBodyActivity extends AbstractActivity {
         t_backgroundTasks.start();
 
         checkIfBandIsConnected();
+        
 
         Thread t_sensorData = new Thread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -93,6 +93,11 @@ public class HomePageBodyActivity extends AbstractActivity {
             return;
         }
 
+        changeDailyBTNStatus();
+        changePeriodicBTNStatus(6);
+        checkIfChangeWithSurgeryOrQuestionnaires();
+
+
     }
 
     @Override
@@ -107,14 +112,14 @@ public class HomePageBodyActivity extends AbstractActivity {
 //        }
         checkIfBandIsConnected();
         updateBTState();
-        Thread t_sensorData = new Thread(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void run() {
-                appController.SendSensorData();
-            }
-        });
-        t_sensorData.start();
+//        Thread t_sensorData = new Thread(new Runnable() {
+//            @RequiresApi(api = Build.VERSION_CODES.N)
+//            @Override
+//            public void run() {
+//                appController.SendSensorData();
+//            }
+//        });
+//        t_sensorData.start();
     }
 
     @Override
@@ -348,27 +353,56 @@ public class HomePageBodyActivity extends AbstractActivity {
         startActivity(intent);
     }
 
+    private void changeDailyBTNStatus() {
+        boolean ans = appController.isLastAnswerFromToday();
+        Button b = findViewById(R.id.daily_questionnaire_btn);
+        if(!ans){
+            b.setBackgroundResource(R.drawable.alert_btn);
+        }
+        else{
+            b.setBackgroundResource(R.drawable.custom_system_button);
+        }
+    }
 
+    private void changePeriodicBTNStatus(long questionnaireID){
+        boolean ans = appController.isLastAnswerFromLastTwoWeeks(questionnaireID);
+        Button b = findViewById(R.id.periodic_questionnaire_btn);
+        if(!ans){
+            b.setBackgroundResource(R.drawable.alert_btn);
+        }
+        else{
+            b.setBackgroundResource(R.drawable.custom_system_button);
+        }
+    }
+
+    private void checkIfChangeWithSurgeryOrQuestionnaires(){
+        Map<String,Boolean> changes = appController.getChangeWithSurgeryOrQuestionnaires();
+        boolean changedQuestionnaires = changes.get("changedQuestionnaires");
+        boolean changedSurgeryDate = changes.get("changedSurgeryDate");
+        String updates = "";
+        if (changedQuestionnaires){
+            updates += getString(R.string.changedQuestionnaires) + "\n";
+//            showInfoAlert(getString(R.string.changedQuestionnaires));
+        }
+        if (changedSurgeryDate){
+            updates += getString(R.string.changedSurgeryDate);
+//            showInfoAlert(getString(R.string.changedSurgeryDate));
+        }
+
+        if (updates.length() > 0){
+            showInfoAlert(updates, HomePageBodyActivity.this);
+        }
+
+        //patientUpdateAndroid
+        appController.updateSurgeryQuestionnairesFields("false", "false");
+    }
+
+    private void showInfoAlert(String msg, Context context) {
+        new AlertDialog.Builder(HomePageBodyActivity.this)
+                .setTitle(R.string.succes)
+                .setMessage(msg)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
 
 }
-
-//class goToQuestionnaireOnClickListener implements View.OnClickListener
-//{
-//
-//    String name;
-//    long id;
-//    String category;
-//
-//    public goToQuestionnaireOnClickListener(String name, long id, String category) {
-//        this.name = name;
-//        this.category = category;
-//        this.id = id;
-//    }
-//
-//    @Override
-//    public void onClick(View v)
-//    {
-//        //read your lovely variable
-//    }
-//
-//};
