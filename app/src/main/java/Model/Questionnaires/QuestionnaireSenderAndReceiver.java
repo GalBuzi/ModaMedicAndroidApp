@@ -188,7 +188,8 @@ public class QuestionnaireSenderAndReceiver {
         JSONObject jsonObject = null;
         Map<String, Boolean> ans = new HashMap<>();
         try {
-            jsonObject = httpRequests.sendGetRequest(Urls.ChangeWithSurgeryOrQuestionnaires, Login.getToken(HttpRequests.getContext()));
+            String token = Login.getToken(HttpRequests.getContext());
+            jsonObject = httpRequests.sendGetRequest(Urls.ChangeWithSurgeryOrQuestionnaires,token);
             JSONObject data = (JSONObject) jsonObject.get("data");
             boolean changedQuestionnaires = data.getBoolean("changedQuestionnaires");
             boolean changedSurgeryDate = data.getBoolean("changedSurgeryDate");
