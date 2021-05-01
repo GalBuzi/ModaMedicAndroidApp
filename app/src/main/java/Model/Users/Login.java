@@ -95,7 +95,11 @@ public class Login {
             } else if (e.getMessage().equals("Taken Email")) {
                 return "Taken Email";
             }
+            else if (e.getMessage().equals("Initial data exist")){
+                return "Initial data exist";
+            }
             e.printStackTrace();
+
         }
         return null;
     }

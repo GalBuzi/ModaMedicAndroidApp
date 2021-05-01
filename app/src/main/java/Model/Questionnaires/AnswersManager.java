@@ -19,8 +19,7 @@ public class AnswersManager {
 
     public static final String TAG = "AnswersManager";
 
-    public static JSONObject createJsonAnswersOfQuestionnaire
-            (Map<Long, List<Long>> questionsAndAnswers, Long questionnaireID) {
+    public static JSONObject createJsonAnswersOfQuestionnaire(Map<Long, List<Long>> questionsAndAnswers, Long questionnaireID) {
         JSONObject result = new JSONObject();
         try {
             result.put("QuestionnaireID",questionnaireID);
