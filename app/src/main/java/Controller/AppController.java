@@ -142,7 +142,7 @@ public class AppController {
     }
 
     public Map<String, Boolean> getChangeWithSurgeryOrQuestionnaires() {
-        return QuestionnaireSenderAndReceiver.getChangeWithSurgeryOrQuestionnaires(httpRequests);
+        return Registration.getChangeWithSurgeryOrQuestionnaires(httpRequests);
     }
 
     public boolean updateSurgeryQuestionnairesFields(String questionnaires, String surgery) {

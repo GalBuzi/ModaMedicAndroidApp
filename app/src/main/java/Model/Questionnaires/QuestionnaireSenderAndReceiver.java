@@ -184,23 +184,5 @@ public class QuestionnaireSenderAndReceiver {
         return false;
     }
 
-    public static Map<String, Boolean> getChangeWithSurgeryOrQuestionnaires(HttpRequests httpRequests) {
-        JSONObject jsonObject = null;
-        Map<String, Boolean> ans = new HashMap<>();
-        try {
-            String token = Login.getToken(HttpRequests.getContext());
-            jsonObject = httpRequests.sendGetRequest(Urls.ChangeWithSurgeryOrQuestionnaires,token);
-            JSONObject data = (JSONObject) jsonObject.get("data");
-            boolean changedQuestionnaires = data.getBoolean("changedQuestionnaires");
-            boolean changedSurgeryDate = data.getBoolean("changedSurgeryDate");
-            ans.put("changedQuestionnaires",changedQuestionnaires);
-            ans.put("changedSurgeryDate",changedSurgeryDate);
-            return ans;
-        }
-        catch (ServerFalseException | JSONException e) {
-            e.printStackTrace();
-        }
 
-        return null;
-    }
 }

@@ -1,6 +1,7 @@
 package com.example.modamedicandroidapplication.IntegrationTesting;
 
 import android.content.Context;
+import android.service.autofill.RegexValidator;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -8,7 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Model.Questionnaires.Questionnaire;
 import Model.Questionnaires.QuestionnaireSenderAndReceiver;
@@ -28,16 +31,20 @@ public class RegistrationTest {
 
     @Before
     public void createUser(){
-        Questionnaire q = new Questionnaire();
         Questionnaire q0 = QuestionnaireSenderAndReceiver.getUserQuestionnaireById(Long.parseLong("0"),httpRequests);
         Questionnaire q1 = QuestionnaireSenderAndReceiver.getUserQuestionnaireById(Long.parseLong("1"),httpRequests);
         Questionnaire q2 = QuestionnaireSenderAndReceiver.getUserQuestionnaireById(Long.parseLong("2"),httpRequests);
         Questionnaire q3 = QuestionnaireSenderAndReceiver.getUserQuestionnaireById(Long.parseLong("3"),httpRequests);
+        Questionnaire q5 = QuestionnaireSenderAndReceiver.getUserQuestionnaireById(Long.parseLong("5"),httpRequests);
+        Questionnaire q6 = QuestionnaireSenderAndReceiver.getUserQuestionnaireById(Long.parseLong("6"),httpRequests);
+
         List<Questionnaire> list_q = new ArrayList<>();
         list_q.add(q0);
         list_q.add(q1);
         list_q.add(q2);
         list_q.add(q3);
+        list_q.add(q5);
+        list_q.add(q6);
 
         valid_user = new User("test@gmail.com","test123",
                 "0544846512",
@@ -81,15 +88,15 @@ public class RegistrationTest {
 
     @Test
     public void invalidRegisterTakenEmail() {
-        //invalid registration
-        String ans = Registration.register(valid_user,httpRequests);
-        assertEquals("Taken Email",ans);
-    }
+            //invalid registration
+            String ans = Registration.register(valid_user,httpRequests);
+            assertEquals("Taken Email",ans);
+        }
 
-    @Test
-    public void invalidRegisterWrongCode() {
-        //invalid registration
-        String ans = Registration.register(invalid_user,httpRequests);
+        @Test
+        public void invalidRegisterWrongCode() {
+            //invalid registration
+            String ans = Registration.register(invalid_user,httpRequests);
         assertEquals("Wrong Code",ans);
     }
 
@@ -111,9 +118,29 @@ public class RegistrationTest {
 
     @Test
     public void getAllVerificationQuestions() {
+        String q0 = "מה שם חיית המחמד הראשונה שלך?";
+        String q1 = "מהו שם הילדות של אמך?";
+        String q2 = "מהו שם בית הספר היסודי בו למדת?";
+        String q3 = "מהו שם הרחוב ומספר הבית בו התגוררת בילדותך?";
+        String q4 = "באיזו עיר פגשת את בן/בת זוגך?";
+        Map<Integer,String> all_questions = Registration.getAllVerificationQuestions(httpRequests);
+
+        assertEquals(q0,all_questions.get(0));
+        assertEquals(q1,all_questions.get(1));
+        assertEquals(q2,all_questions.get(2));
+        assertEquals(q3,all_questions.get(3));
+
+        assertNotEquals(q1, "זוהי לא שאלת אימות מתוך השאלות הקיימות");
+
     }
 
     @Test
     public void updateSurgeryQuestionnairesFields() {
+        Registration.updateSurgeryQuestionnairesFields("true","true",httpRequests);
+        Map<String, Boolean> ans = Registration.getChangeWithSurgeryOrQuestionnaires(httpRequests);
+
+        assertTrue(ans.get("changedQuestionnaires"));
+        assertTrue(ans.get("changedSurgeryDate"));
+
     }
 }
