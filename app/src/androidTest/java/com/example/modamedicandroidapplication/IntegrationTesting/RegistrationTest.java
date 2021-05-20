@@ -103,7 +103,7 @@ public class RegistrationTest {
 
 
     @Test
-    public void update() {
+    public void updateDetails() {
         String gender = "נקבה";
         String isSmoker = "לא מעשן";
         String education = "השכלה אקדמית";

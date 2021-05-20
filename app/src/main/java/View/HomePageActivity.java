@@ -217,8 +217,8 @@ public class HomePageActivity extends AbstractActivity {
         params.setMargins(10,10, 10, 10);
         b.setGravity(Gravity.CENTER);
         b.setLayoutParams(params);
+//        b.setBackgroundResource(R.drawable.custom_system_button);
         changePeriodicBTNStatus(b, questionnaireID);
-//        b.setBackground(getDrawable(R.drawable.custom_button));
     }
 
     private void changePeriodicBTNStatus(Button b, long questionnaireID){

@@ -1,5 +1,6 @@
 package Model.Questionnaires;
 
+import android.content.res.Resources;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import Model.Exceptions.ServerFalseException;
@@ -20,8 +22,10 @@ import Model.Utils.Urls;
 public class QuestionnaireSenderAndReceiver {
 
     private static final String TAG = "QuestionnaireSender";
+    private static final String language =  Locale.getDefault().getLanguage();
+
     public static void sendAnswers(Map<Long, List<Long>> questionsAndAnswers, Long questionnaireID, HttpRequests httpRequests) {
-        Thread t = new Thread(new Runnable() {
+           Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 JSONObject request = AnswersManager.createJsonAnswersOfQuestionnaire(questionsAndAnswers,questionnaireID);
