@@ -23,7 +23,7 @@ import Model.Utils.Urls;
 public class QuestionnaireSenderAndReceiver {
 
     private static final String TAG = "QuestionnaireSender";
-    private static final String language =  Locale.getDefault().getLanguage();
+//    private static final String language =  ;
 
     public static void sendAnswers(Map<Long, List<Long>> questionsAndAnswers, Long questionnaireID, HttpRequests httpRequests) {
            Thread t = new Thread(new Runnable() {
@@ -66,7 +66,7 @@ public class QuestionnaireSenderAndReceiver {
     }
 
     public static Questionnaire getUserQuestionnaireById(Long questionnaire_id, HttpRequests httpRequests) {
-        JSONObject jsonObject = getQuestionnaireFromDB(Urls.urlGetQuestionnaireByID+questionnaire_id+'/'+language, httpRequests);
+        JSONObject jsonObject = getQuestionnaireFromDB(Urls.urlGetQuestionnaireByID+questionnaire_id+'/'+Locale.getDefault().getLanguage(), httpRequests);
 
         try {
             assert jsonObject != null;
@@ -92,7 +92,7 @@ public class QuestionnaireSenderAndReceiver {
     public static Map<Integer, String> getAllQuestionnaires(HttpRequests httpRequests) {
         Map<Integer, String> result = new HashMap<>();
         try {
-            JSONObject response = httpRequests.sendGetRequest(Urls.urlOfGetAllQuestionnaires+'/'+language);
+            JSONObject response = httpRequests.sendGetRequest(Urls.urlOfGetAllQuestionnaires+'/'+Locale.getDefault().getLanguage());
             JSONArray array = response.getJSONArray("data");
             for (int i=0; i<array.length(); i++) {
                 JSONObject question = (JSONObject) array.get(i);
@@ -137,7 +137,7 @@ public class QuestionnaireSenderAndReceiver {
         JSONObject json = new JSONObject();
         String token = Login.getToken(HttpRequests.getContext());
         try {
-            String GETwithParams = Urls.getUserQuestionnaireTitlesByCategory+'/'+category+'/'+language;
+            String GETwithParams = Urls.getUserQuestionnaireTitlesByCategory+'/'+category+'/'+Locale.getDefault().getLanguage();
             JSONObject response = httpRequests.sendGetRequest(GETwithParams, token  );
             JSONArray array = response.getJSONArray("data");
             for (int i = 0; i < array.length(); i++) {
