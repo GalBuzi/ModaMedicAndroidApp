@@ -47,8 +47,7 @@ public class QuestionnaireSenderAndReceiver {
         JSONObject user_questionnaires;
         Map<Long,String> result = new HashMap<>();
         try {
-            String withParams = Urls.urlGetUserQuestionnaires+language;
-            user_questionnaires = httpRequests.sendGetRequest(withParams, Login.getToken(HttpRequests.getContext()) );
+           user_questionnaires = httpRequests.sendGetRequest(Urls.urlGetUserQuestionnaires, Login.getToken(HttpRequests.getContext()) );
 
             JSONArray array = user_questionnaires.getJSONArray("data");
             for (int i=0; i<array.length(); i++) {
@@ -66,26 +65,8 @@ public class QuestionnaireSenderAndReceiver {
         return result;
     }
 
-//    public static Questionnaire getUserQuestionnaireById(Long questionnaire_id, HttpRequests httpRequests) {
-//        JSONObject jsonObject = getQuestionnaireFromDB(Urls.urlGetQuestionnaireByID+questionnaire_id, httpRequests);
-//
-//        try {
-//            assert jsonObject != null;
-//            Log.i(TAG, jsonObject.toString());
-//            jsonObject = (JSONObject) jsonObject.get("data");
-//        }
-//        catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return QuestionnaireManager.createQuestionnaireFromJSON(jsonObject);
-//    }
-
     public static Questionnaire getUserQuestionnaireById(Long questionnaire_id, HttpRequests httpRequests) {
-        String withParams = Urls.urlGetQuestionnaireByIDAndLanguage+Urls.urlGetQuestionnaireByIDParam+questionnaire_id+
-                Urls.urlGetQuestionnaireByLangParam+language;
-
-        JSONObject jsonObject = getQuestionnaireFromDB(withParams, httpRequests);
+        JSONObject jsonObject = getQuestionnaireFromDB(Urls.urlGetQuestionnaireByID+questionnaire_id+'/'+language, httpRequests);
 
         try {
             assert jsonObject != null;
@@ -111,8 +92,7 @@ public class QuestionnaireSenderAndReceiver {
     public static Map<Integer, String> getAllQuestionnaires(HttpRequests httpRequests) {
         Map<Integer, String> result = new HashMap<>();
         try {
-            String withParams = Urls.urlOfGetAllQuestionnaires+language;
-            JSONObject response = httpRequests.sendGetRequest(withParams);
+            JSONObject response = httpRequests.sendGetRequest(Urls.urlOfGetAllQuestionnaires+'/'+language);
             JSONArray array = response.getJSONArray("data");
             for (int i=0; i<array.length(); i++) {
                 JSONObject question = (JSONObject) array.get(i);
@@ -157,8 +137,8 @@ public class QuestionnaireSenderAndReceiver {
         JSONObject json = new JSONObject();
         String token = Login.getToken(HttpRequests.getContext());
         try {
-            String GETwithParams = Urls.getUserQuestionnaireTitlesByCategoryAndLang+Urls.getUserQuestionnaireTitlesCategoryParam+category+Urls.getUserQuestionnaireTitlesLangParam+language;
-            JSONObject response = httpRequests.sendGetRequest(GETwithParams, token);
+            String GETwithParams = Urls.getUserQuestionnaireTitlesByCategory+'/'+category+'/'+language;
+            JSONObject response = httpRequests.sendGetRequest(GETwithParams, token  );
             JSONArray array = response.getJSONArray("data");
             for (int i = 0; i < array.length(); i++) {
                 titles.add((String)array.get(i));

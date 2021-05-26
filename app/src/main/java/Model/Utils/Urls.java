@@ -12,12 +12,8 @@ public final class Urls {
     public static final String urlHasBeenAnswered = "auth/patients/answers/answeredQuestionnaire?"; // params: days, questionnaireID
     public static final String getUrlHasBeenAnsweredDaysParam = "days=";
     public static final String getUrlHasBeenAnsweredQuestionnaireIDParam = "&questionnaireID=";
-    public static final String urlGetUserQuestionnaires = "auth/usersAll/getUserQuestionnaire?Language=";
-
+    public static final String urlGetUserQuestionnaires = "auth/usersAll/getUserQuestionnaire";
     public static final String urlGetQuestionnaireByID = "questionnaires/getQuestionnaire/"; //add id as param
-    public static final String urlGetQuestionnaireByIDAndLanguage = "questionnaires/getQuestionnaire?";
-    public static final String urlGetQuestionnaireByIDParam = "QuestionnaireID=";
-    public static final String urlGetQuestionnaireByLangParam = "&Language=";
     public static final String urlPostAnswersOfQuestionnaireByID = "auth/patients/answers/sendAnswers";
     public static final String urlOfLogin = "users/login";
     public static final String urlOfForgotPassword = "users/forgotPassword";
@@ -26,7 +22,7 @@ public final class Urls {
     public static final String urlOfSetNewPassword = "users/passwordChangeCheck/changePassword";
     public static final String urlOfGetSpecialToken = "auth/usersAll/askChangePassword";
     public static final String urlOfGetAllVerificationQuestions = "users/getVerifications";
-    public static final String urlOfGetAllQuestionnaires = "questionnaires/all?Language=";
+    public static final String urlOfGetAllQuestionnaires = "questionnaires/all";
     public static final String urlOfRegister = "users/patientRegister";
     public static final String urlOfGetSurgeryDate = "auth/usersAll/getDateOfSurgery";
     public static final String urlOfSetSurgeryDate = "auth/usersAll/ChangeDateOfSurgery";
@@ -37,9 +33,6 @@ public final class Urls {
     public static final String setInitStepsDaily = "auth/patients/PatientDestinations/insertLastDaySteps";
     public static final String setInitStepsWeekly = "auth/patients/PatientDestinations/insertLastWeekSteps";
     public static final String getUserQuestionnaireTitlesByCategory = "auth/usersAll/getUserQuestionnaireByCategory";
-    public static final String getUserQuestionnaireTitlesByCategoryAndLang = "auth/usersAll/getUserQuestionnaireByCategory?";
-    public static final String getUserQuestionnaireTitlesCategoryParam = "Category=";
-    public static final String getUserQuestionnaireTitlesLangParam = "&Language=";
     public static final String updateInfo = "auth/usersAll/patientUpdateAndroid";
 
     public static final String daily_last_response = "auth/patients/answers/getLastDaily";
