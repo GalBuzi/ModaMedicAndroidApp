@@ -81,12 +81,11 @@
             android:layout_width="167dp"
             android:layout_height="38dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"
             android:gravity="center_horizontal"
             android:text="@string/birthday_string"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.885"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/answer_textfield" />
 
@@ -149,12 +148,11 @@
             android:layout_height="37dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="16dp"
             android:ems="30"
             android:gravity="center"
-            app:layout_constraintEnd_toStartOf="@+id/title2"
-            app:layout_constraintHorizontal_bias="0.571"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/answer_textfield" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
