@@ -47,7 +47,7 @@ public class QuestionnaireSenderAndReceiver {
         JSONObject user_questionnaires;
         Map<Long,String> result = new HashMap<>();
         try {
-           user_questionnaires = httpRequests.sendGetRequest(Urls.urlGetUserQuestionnaires, Login.getToken(HttpRequests.getContext()) );
+           user_questionnaires = httpRequests.sendGetRequest(Urls.urlGetUserQuestionnaires+'/'+Locale.getDefault().getLanguage(), Login.getToken(HttpRequests.getContext()) );
 
             JSONArray array = user_questionnaires.getJSONArray("data");
             for (int i=0; i<array.length(); i++) {

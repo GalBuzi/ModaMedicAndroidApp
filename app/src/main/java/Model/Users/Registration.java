@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -61,7 +62,7 @@ public class Registration {
     public static Map<Integer, String> getAllVerificationQuestions(HttpRequests httpRequests) {
         try {
             Map<Integer, String> result = new HashMap<Integer, String>();
-            JSONObject response = httpRequests.sendGetRequest(Urls.urlOfGetAllVerificationQuestions);
+            JSONObject response = httpRequests.sendGetRequest(Urls.urlOfGetAllVerificationQuestions+'/'+ Locale.getDefault().getLanguage());
             JSONArray array = response.getJSONArray("data");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject object = (JSONObject) array.get(i);

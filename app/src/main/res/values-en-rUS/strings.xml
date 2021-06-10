@@ -57,7 +57,7 @@
     <string name="betweenZeroTo100">Rate between 0 to 100</string>
     <string name="choose_questionnaire">Choose questionnaire</string>
     <string name="logout">Logout</string>
-    <string name="change_password">Change password</string>
+    <string name="change_password">Change \n password</string>
     <string name="basicMedicine">ACAMOL, OPTALGIN, ARCOXIA, BREXIN, ETOPAN etc.</string>
     <string name="advancedMedicine">ZALDIAR, TRAMADEX etc.</string>
     <string name="narcoticMedicine">OXYCONTIN, PERCOCET, FENTANYL, Cannabis etc.</string>

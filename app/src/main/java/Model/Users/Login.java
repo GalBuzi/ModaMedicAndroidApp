@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.locks.Condition;
 
@@ -122,7 +123,7 @@ public class Login {
             body.put("UserID", username);
             JSONObject response = httpRequest.sendPostRequest(body, Urls.urlOfForgotPassword);
             String question_id = response.getString("data");
-            JSONObject question_res = httpRequest.sendGetRequest(Urls.urlOfGetVerificationQuestion + question_id);
+            JSONObject question_res = httpRequest.sendGetRequest(Urls.urlOfGetVerificationQuestion+'/'+ Locale.getDefault().getLanguage()+ Urls.getUrlOfGetVerificationQuestionQuestionID + question_id);
             return question_res.getJSONObject("data").getString("QuestionText");
 
         } catch (ServerFalseException | JSONException e) {
