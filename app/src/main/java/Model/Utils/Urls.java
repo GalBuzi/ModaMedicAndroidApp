@@ -17,7 +17,8 @@ public final class Urls {
     public static final String urlPostAnswersOfQuestionnaireByID = "auth/patients/answers/sendAnswers";
     public static final String urlOfLogin = "users/login";
     public static final String urlOfForgotPassword = "users/forgotPassword";
-    public static final String urlOfGetVerificationQuestion = "users/getVerificationQuestion?QuestionID="; //id of question is param
+    public static final String urlOfGetVerificationQuestion = "users/getVerificationQuestion"; //id of question is param
+    public static final String getUrlOfGetVerificationQuestionQuestionID = "?QuestionID=";
     public static final String urlOfCheckVerificationAnswer = "users/checkVerification";
     public static final String urlOfSetNewPassword = "users/passwordChangeCheck/changePassword";
     public static final String urlOfGetSpecialToken = "auth/usersAll/askChangePassword";
@@ -34,6 +35,7 @@ public final class Urls {
     public static final String setInitStepsWeekly = "auth/patients/PatientDestinations/insertLastWeekSteps";
     public static final String getUserQuestionnaireTitlesByCategory = "auth/usersAll/getUserQuestionnaireByCategory";
     public static final String updateInfo = "auth/usersAll/patientUpdateAndroid";
+
     public static final String daily_last_response = "auth/patients/answers/getLastDaily";
     public static final String periodic_last_response = "auth/patients/answers/getLastPeriodicByQuestionnaire";
     public static final String ChangeWithSurgeryOrQuestionnaires = "auth/usersAll/getChangeWithSurgeryOrQuestionnaires";

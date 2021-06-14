@@ -1,15 +1,18 @@
 package Model.Questionnaires;
 
+import android.content.res.Resources;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import Model.Exceptions.ServerFalseException;
@@ -20,8 +23,10 @@ import Model.Utils.Urls;
 public class QuestionnaireSenderAndReceiver {
 
     private static final String TAG = "QuestionnaireSender";
+//    private static final String language =  ;
+
     public static void sendAnswers(Map<Long, List<Long>> questionsAndAnswers, Long questionnaireID, HttpRequests httpRequests) {
-        Thread t = new Thread(new Runnable() {
+           Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 JSONObject request = AnswersManager.createJsonAnswersOfQuestionnaire(questionsAndAnswers,questionnaireID);
@@ -42,7 +47,7 @@ public class QuestionnaireSenderAndReceiver {
         JSONObject user_questionnaires;
         Map<Long,String> result = new HashMap<>();
         try {
-           user_questionnaires = httpRequests.sendGetRequest(Urls.urlGetUserQuestionnaires, Login.getToken(HttpRequests.getContext()) );
+           user_questionnaires = httpRequests.sendGetRequest(Urls.urlGetUserQuestionnaires+'/'+Locale.getDefault().getLanguage(), Login.getToken(HttpRequests.getContext()) );
 
             JSONArray array = user_questionnaires.getJSONArray("data");
             for (int i=0; i<array.length(); i++) {
@@ -61,7 +66,7 @@ public class QuestionnaireSenderAndReceiver {
     }
 
     public static Questionnaire getUserQuestionnaireById(Long questionnaire_id, HttpRequests httpRequests) {
-        JSONObject jsonObject = getQuestionnaireFromDB(Urls.urlGetQuestionnaireByID+questionnaire_id, httpRequests);
+        JSONObject jsonObject = getQuestionnaireFromDB(Urls.urlGetQuestionnaireByID+questionnaire_id+'/'+Locale.getDefault().getLanguage(), httpRequests);
 
         try {
             assert jsonObject != null;
@@ -87,7 +92,7 @@ public class QuestionnaireSenderAndReceiver {
     public static Map<Integer, String> getAllQuestionnaires(HttpRequests httpRequests) {
         Map<Integer, String> result = new HashMap<>();
         try {
-            JSONObject response = httpRequests.sendGetRequest(Urls.urlOfGetAllQuestionnaires);
+            JSONObject response = httpRequests.sendGetRequest(Urls.urlOfGetAllQuestionnaires+'/'+Locale.getDefault().getLanguage());
             JSONArray array = response.getJSONArray("data");
             for (int i=0; i<array.length(); i++) {
                 JSONObject question = (JSONObject) array.get(i);
@@ -107,14 +112,33 @@ public class QuestionnaireSenderAndReceiver {
 
     }
 
-    //getUserQuestionnaireTitlesByCategory
+//    //getUserQuestionnaireTitlesByCategory
+//    public static ArrayList<String> getUserCategoriesQuestionnaireTitles(HttpRequests httpRequests, String category) {
+//        ArrayList<String> titles = new ArrayList<>();
+//        JSONObject json = new JSONObject();
+//        String token = Login.getToken(HttpRequests.getContext());
+//        try {
+//            json.put("Category", category);
+//            JSONObject response = httpRequests.sendPostRequest(json, Urls.getUserQuestionnaireTitlesByCategory,token);
+//            JSONArray array = response.getJSONArray("data");
+//            for (int i = 0; i < array.length(); i++) {
+//                titles.add((String)array.get(i));
+//            }
+//            return titles;
+//        } catch (JSONException | ServerFalseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
+
     public static ArrayList<String> getUserCategoriesQuestionnaireTitles(HttpRequests httpRequests, String category) {
         ArrayList<String> titles = new ArrayList<>();
         JSONObject json = new JSONObject();
         String token = Login.getToken(HttpRequests.getContext());
         try {
-            json.put("Category", category);
-            JSONObject response = httpRequests.sendPostRequest(json, Urls.getUserQuestionnaireTitlesByCategory,token);
+            String GETwithParams = Urls.getUserQuestionnaireTitlesByCategory+'/'+category+'/'+Locale.getDefault().getLanguage();
+            JSONObject response = httpRequests.sendGetRequest(GETwithParams, token  );
             JSONArray array = response.getJSONArray("data");
             for (int i = 0; i < array.length(); i++) {
                 titles.add((String)array.get(i));

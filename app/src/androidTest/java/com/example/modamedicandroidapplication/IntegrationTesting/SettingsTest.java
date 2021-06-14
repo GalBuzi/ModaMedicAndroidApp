@@ -26,7 +26,7 @@ public class SettingsTest {
     @Test
     public void getSurgeryDate() {
         //take surgery date of gal's user from db
-        long date = Long.parseLong("1618261200000");
+        long date = Long.parseLong("1620226800");
 
         //compare with result from method
         long ans = Settings.getSurgeryDate(httpRequests);

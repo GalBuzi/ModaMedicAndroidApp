@@ -96,6 +96,7 @@ public class HomePageBodyActivity extends AbstractActivity {
         changeDailyBTNStatus();
         changePeriodicBTNStatus(6);
         checkIfChangeWithSurgeryOrQuestionnaires();
+        showMifitAlert(getString(R.string.mifit_alert),HomePageBodyActivity.this);
 
 
     }
@@ -120,6 +121,9 @@ public class HomePageBodyActivity extends AbstractActivity {
 //            }
 //        });
 //        t_sensorData.start();
+        changeDailyBTNStatus();
+        changePeriodicBTNStatus(6);
+        checkIfChangeWithSurgeryOrQuestionnaires();
     }
 
     @Override
@@ -401,7 +405,17 @@ public class HomePageBodyActivity extends AbstractActivity {
         new AlertDialog.Builder(HomePageBodyActivity.this)
                 .setTitle(R.string.succes)
                 .setMessage(msg)
+                .setNegativeButton(R.string.close, null)
                 .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+
+    private void showMifitAlert(String msg, Context context) {
+        new AlertDialog.Builder(HomePageBodyActivity.this)
+                .setTitle(R.string.mifit)
+                .setMessage(msg)
+                .setNegativeButton(R.string.close, null)
+                .setIcon(R.drawable.mifit)
                 .show();
     }
 

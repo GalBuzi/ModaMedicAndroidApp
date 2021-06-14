@@ -68,7 +68,7 @@ public class Settings {
                 }
             }
             body.put("Questionnaires",questionnaireArray);
-            httpRequests.sendPostRequest(body,Urls.urlOfSetNewQuestionnaires,token);
+            JSONObject response = httpRequests.sendPostRequest(body,Urls.urlOfSetNewQuestionnaires,token);
             return true;
         } catch (JSONException | ServerFalseException e) {
             Log.i(TAG,"Error in setting new questionnaires of user with token " + token);

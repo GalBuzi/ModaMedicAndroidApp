@@ -25,7 +25,7 @@ public class LoginTest {
     public void login() {
         //login with existing user
         String username = "galb411@gmail.com";
-        String pass = "g";
+        String pass = "gg";
         assertTrue(Login.login(username,pass,appContext,httpRequests));
 
         //login with fake user

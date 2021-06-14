@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">ModaMedic</string>
     <string name="current_version_number">v2.0</string>
-    <string name="daily_questionnaire_notification">לא ענית עדיין על השאלון היומי, פנה/י לנו איזה דקה?</string>
     <string name="periodic_questionnaire_notification_pref">כבר הרבה זמן שלא ענית על שאלון</string>
     <string name="periodic_questionnaire_notification_suffix">. ואנחנו רוצים לדעת מה קורה איתך. אולי תיכנס/י עכשיו?</string>
     <string name="notification_action">יאללה נכנס!</string>
@@ -42,7 +41,6 @@
     <string name="something_went_wrong">שגיאה. נסה/י שנית</string>
     <string name="new_password_title">הגדר/י סיסמא חדשה</string>
     <string name="password_are_not_equal">אי תאימות בין שדות סיסמא חדשה</string>
-    <string name="error_on_server">אירעה שגיאה בשרת</string>
     <string name="succes">אישור</string>
     <string name="specialTokenInvalid">עברו חמש דקות, אז חזור/חזרי אחורה, ענה/י על שאלה האימות ונסה/י פעם נוספת.</string>
     <string name="gohome">חזור לדף הבית</string>
@@ -126,21 +124,17 @@
     <string name="medicine_examples_basic_title">דוגמאות לתרופה בסיסית:</string>
     <string name="medicine_examples_advanced_title">דוגמאות לתרופה מתקדמת:</string>
     <string name="medicine_examples_narcotic_title">דוגמאות לתרופה נרקוטית:</string>
-    <string name="medicine_examples_basic_info">Paracetamol, Optalgin ‏(Dypiron), Indovis‏ (Indomethacin),‏ Xefo‏ (Lornoxicam),‏ Ibuprofen‏, Naproxen‏, Diclofenac‏, (Etopan) Etodolac ‏,( CELCOX)Celecoxib ,‏ Valdecoxib,‏ Nabuco ‏ (Nabumetone), Arcoxia‏ (Etonicoxib).
-</string>
-    <string name="medicine_examples_advanced_info">Tramadol, Codeine, Zaldiar, PERCOCET, CYMBALTA/Gabapentin/Lyrica‏.
-</string>
-    <string name="medicine_examples_narcotic_info">Oxycontin, OXYCODONE, TARGIN, Patch‏ Fentanyl, Butrans (Buprenorphine Matrix Patch), Cannabis,‏ MIR, MCR,
-MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitriptyline), Tofranil‏ (Imipramine),‏ Deprexan‏ (Desipramine).
-</string>
+    <string name="medicine_examples_basic_info">"Paracetamol, Optalgin ‏(Dypiron), Indovis‏ (Indomethacin),‏ Xefo‏ (Lornoxicam),‏ Ibuprofen‏, Naproxen‏, Diclofenac‏, (Etopan) Etodolac ‏,( CELCOX)Celecoxib ,‏ Valdecoxib,‏ Nabuco ‏ (Nabumetone), Arcoxia‏ (Etonicoxib). "</string>
+    <string name="medicine_examples_advanced_info">"Tramadol, Codeine, Zaldiar, PERCOCET, CYMBALTA/Gabapentin/Lyrica‏. "</string>
+    <string name="medicine_examples_narcotic_info">"Oxycontin, OXYCODONE, TARGIN, Patch‏ Fentanyl, Butrans (Buprenorphine Matrix Patch), Cannabis,‏ MIR, MCR, MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitriptyline), Tofranil‏ (Imipramine),‏ Deprexan‏ (Desipramine). "</string>
     <string name="more_medicine_examples">דוגמאות נוספות לתרופות</string>
     <string name="close">סגירה</string>
     <string name="terms_info">קראתי והסכמתי לתנאי השימוש</string>
     <string name="termsAndConditions">תנאי השימוש</string>
-    <string name="full_terms_and_conditions"> אני מאשר ל-ModaMedic לאסוף עליי מידע לצרכי טיפול ומחקר. המידע הנאסף למעשה כולל צפייה במזג האוויר במקום בו אני נמצא, מעקב אחר כמות הצעדים היומית אותה אבצע, המרחק היומי אותו גמעתי, נתונים לגבי איכות השינה שלי וכן צריכת קלוריות יומית. לא יתבצע כל שימוש לרעה במידע והוא מאוחסן בבסיס נתונים מאובטח.  \n בכל עת אוכל לבטל את ההרשאות לאיסוף המידע שלי על ידי כניסה להגדרות האפליקציה במכשיר. המידע לא יחשף לאדם מלבד רופאים בעלי הרשאה מתאימה מבית החולים סורוקה. \n אני מסכים לשתף פעולה עם המחקר של בית החולים סורוקה בשיתוף סטודנטים מאוניברסיטת בן גוריון בנגב.</string>
+    <string name="full_terms_and_conditions">" אני מאשר ל-ModaMedic לאסוף עליי מידע לצרכי טיפול ומחקר. המידע הנאסף למעשה כולל צפייה במזג האוויר במקום בו אני נמצא, מעקב אחר כמות הצעדים היומית אותה אבצע, המרחק היומי אותו גמעתי, נתונים לגבי איכות השינה שלי וכן צריכת קלוריות יומית. לא יתבצע כל שימוש לרעה במידע והוא מאוחסן בבסיס נתונים מאובטח.    בכל עת אוכל לבטל את ההרשאות לאיסוף המידע שלי על ידי כניסה להגדרות האפליקציה במכשיר. המידע לא יחשף לאדם מלבד רופאים בעלי הרשאה מתאימה מבית החולים סורוקה.   אני מסכים לשתף פעולה עם המחקר של בית החולים סורוקה בשיתוף סטודנטים מאוניברסיטת בן גוריון בנגב."</string>
     <string name="fill_terms">לא ניתן להירשם ללא הסכמה לתנאי השימוש. סמן/י וי בתיבה המתאימה ונסה שנית</string>
     <string name="unknown_error_occured">שגיאה לא ידועה, אנא נסה שנית במועד מאוחר יותר</string>
-    <string name="error_on_server_try_later">אירעה שגיאה בשרת, אנה נסה שנית במועד מאוחר יותר</string>
+    <string name="error_on_server_try_later">אירעה שגיאה בשרת, אנא נסה שנית במועד מאוחר יותר</string>
     <string name="no_internet_connection">אין חיבור אינטרנט פעיל. התחבר לרשת ונסה שנית</string>
 
     <string name="improve_daily_steps">כל הכבוד! השתפרת בכמות הצעדים היומית!</string>
@@ -160,7 +154,7 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="weekly_before_num_of_steps">כמות צעדים בשבוע שעבר:</string>
     <string name="weekly_no_improve_steps">נסה לעמוד בקצב! לא שיפרת את כמות הצעדים השבועית</string>
     <string name="weekly_current_num_of_steps">כמות צעדים השבוע:</string>
-    <string name="choose_questionnaire_by_body_section">בחר שאלון לפי איבר בגוף:</string>
+    <string name="choose_questionnaire_by_body_section">בחר שאלון לפי איבר:</string>
     <string name="daily">יומי</string>
     <string name="periodic_questionnaire">שאלון איכות חיים</string>
     <string name="patient_id">מזהה מטופל</string>
@@ -170,8 +164,13 @@ MSP, AQTIC, Adolan‏ (Methadone),Tricyclic antidepressants, Elatrol‏ (Amitrip
     <string name="edit_personal_info">עדכון פרטים אישיים</string>
     <string name="edit_personal_info_title">עריכת פרטים אישיים</string>
     <string name="updateInfo">עדכן פרטים</string>
-    <string name="updateSuccess">עדכן פרטים בוצע בהצלחה</string>
+    <string name="updateSuccess">עדכון פרטים בוצע בהצלחה</string>
     <string name="changedQuestionnaires">הרופא שינה את השאלונים עבורך</string>
     <string name="changedSurgeryDate">הרופא עדכן תאריך ניתוח עבורך</string>
+
+    <string name="mifit_alert">הפעל את אפליקציית Mi-Fit ולאחר מכן חזור אל האפליקציה הזו כדי שהמדדים שלך יסתנכרנו כראוי</string>
+    <string name="mifit">Mi-Fit</string>
+    <string name="daily_questionnaire_notification">עדיין לא ענית על השאלון היומי, אולי זה הזמן?</string>
+    <string name="error_on_server">אירעה שגיאה בשרת</string>
 
 </resources>
