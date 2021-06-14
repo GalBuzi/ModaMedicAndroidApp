@@ -36,6 +36,8 @@ public class AnswersManagerTest {
     public void hasUserAnswered() {
         String q_id = "0";
         String days = "3";
-        assertTrue(AnswersManager.hasUserAnswered(q_id,days,httpRequests));
+        assertTrue(AnswersManager.hasUserAnswered(q_id,days,httpRequests)); // if answered on quest 0 in last 3 days
+//        assertFalse(AnswersManager.hasUserAnswered(q_id,days,httpRequests)); // else
+
     }
 }
