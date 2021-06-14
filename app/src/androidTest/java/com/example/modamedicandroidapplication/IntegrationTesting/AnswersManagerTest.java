@@ -29,7 +29,6 @@ public class AnswersManagerTest {
 
 //        System.out.println("gfhs");
 //        Map<Long, List<Long>> questionsAndAnswers = new HashMap<>();
-
     }
 
     @Test
